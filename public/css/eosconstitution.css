@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css?family=Italianno");
+/* line 1, ../sass/_laravel.scss */
+html, body {
+  background-color: #fff;
+  color: #636b6f;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 100;
+  height: 100vh;
+  margin: 0;
+}
+
+/* line 10, ../sass/_laravel.scss */
+.full-height {
+  height: 100vh;
+}
+
+/* line 14, ../sass/_laravel.scss */
+.flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+/* line 20, ../sass/_laravel.scss */
+.position-ref {
+  position: relative;
+}
+
+/* line 24, ../sass/_laravel.scss */
+.top-right {
+  position: absolute;
+  right: 10px;
+  top: 18px;
+}
+
+/* line 31, ../sass/_laravel.scss */
+.title {
+  font-size: 84px;
+}
+
+/* line 35, ../sass/_laravel.scss */
+.links > a {
+  color: #636b6f;
+  padding: 0 25px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* line 45, ../sass/_laravel.scss */
+.m-b-md {
+  margin-bottom: 30px;
+}
+
+/* line 5, ../sass/eosconstitution.scss */
+html {
+  /*
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  */
+  background-image: url("../img/bg.jpg");
+}
+/* line 12, ../sass/eosconstitution.scss */
+html body {
+  background-color: transparent;
+  color: black;
+}
+/* line 17, ../sass/eosconstitution.scss */
+html h1, html h2, html h3 {
+  font-family: 'Italianno', cursive;
+}
