@@ -16,7 +16,7 @@ class Init extends Migration
         Schema::create('proposals', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
             $table->longText('description');
             $table->timestamps();
@@ -25,16 +25,16 @@ class Init extends Migration
         Schema::create('proposal_supporters', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('proposal_id')->unsigned();
-            $table->foreign('proposal_id')->references('id')->on('proposals');
+            $table->foreign('proposal_id')->references('id')->on('proposals')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
 
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('proposal_id')->unsigned();
-            $table->foreign('proposal_id')->references('id')->on('proposals');
+            $table->foreign('proposal_id')->references('id')->on('proposals')->onDelete('cascade');
             $table->string('name');
             $table->longText('description');
             $table->timestamps();
@@ -43,9 +43,9 @@ class Init extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('article_id')->unsigned();
-            $table->foreign('article_id')->references('id')->on('articles');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->longText('description');
             $table->nestedSet();
             $table->timestamps();
