@@ -11,7 +11,7 @@
     </p>
     <div class="row">
         <div class="col-3">
-            <img src="http://via.placeholder.com/350x150?text=placeholder" class="figure-img img-fluid rounded" />
+            <img src="{{ asset('img/homepage_sidebar.jpeg') }}" class="img-fluid rounded" />
             <p>
                 Do you have a strong opinion for multiple changes? Create your own constitution proposal.
             </p>
