@@ -1,0 +1,3 @@
+[submodule "resources/eos-mainnet-governance"]
+	path = resources/eos-mainnet-governance
+	url = https://github.com/EOS-Mainnet/governance.git

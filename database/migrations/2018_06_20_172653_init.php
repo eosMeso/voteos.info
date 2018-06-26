@@ -18,7 +18,7 @@ class Init extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('name');
-            $table->string('description');
+            $table->longText('description');
             $table->timestamps();
         });
 
@@ -36,7 +36,8 @@ class Init extends Migration
             $table->integer('proposal_id')->unsigned();
             $table->foreign('proposal_id')->references('id')->on('proposals');
             $table->string('name');
-            $table->string('description');
+            $table->longText('description');
+            $table->timestamps();
         });
 
         Schema::create('comments', function (Blueprint $table) {
@@ -45,6 +46,7 @@ class Init extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('article_id')->unsigned();
             $table->foreign('article_id')->references('id')->on('articles');
+            $table->longText('description');
             $table->nestedSet();
             $table->timestamps();
         });

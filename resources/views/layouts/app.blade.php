@@ -7,7 +7,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/eosconstitution.css" />
+    <link rel="stylesheet" href="{{ asset('css/eosconstitution.css') }}" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -21,7 +24,7 @@
     <div class="container">
         <center class="flex-center pt-5">
             <h1>
-                We the EOS People
+                <a href="{{ url('/') }}">We the EOS People</a>
                 <br />
                 <small class="text-muted">eosconstitution.io</small>
             </h1>
@@ -42,9 +45,6 @@
             @endif
 
             <div class="content">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitiosum est enim in dividendo partem in genere numerare. Quae quo sunt excelsiores, eo dant clariora indicia naturae. Itaque nostrum est-quod nostrum dico, artis est-ad ea principia, quae accepimus. Nam et a te perfici istam disputationem volo, nec tua mihi oratio longa videri potest. Duo Reges: constructio interrete. Hoc dixerit potius Ennius: Nimium boni est, cui nihil est mali. Tum Torquatus: Prorsus, inquit, assentior; Ex ea difficultate illae fallaciloquae, ut ait Accius, malitiae natae sunt. Aliter enim nosmet ipsos nosse non possumus.
-                </p>
                 @yield('content')
             </div>
         </div>

@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ProposalsController@index');
+
+Route::resource('comments',            'CommentsController');
+Route::resource('proposals',           'ProposalsController');
+Route::resource('proposals.articles',  'ArticlesController');
+Route::resource('proposal-supporters', 'ProposalSupportersController');
