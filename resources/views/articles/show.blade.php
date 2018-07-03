@@ -1,6 +1,7 @@
 <?php
-
-
+/**
+ * Draws the block per answer.
+ */
 $tree = function ($nodes, $level = 0) use (&$tree) {
     foreach ($nodes as $node) {
         $width = 12 - $level
@@ -17,23 +18,21 @@ $tree = function ($nodes, $level = 0) use (&$tree) {
         $tree($node->children, $level +1);
     }
 };
-
 ?>
-
 @extends('layouts.app')
 
 @section('title', 'proposals')
 
 @section('content')
+    <script src="{{ asset('js/forum.js') }}"></script>
+
     <script>
         $(function() {
 
             $('#reply').on('show.bs.modal', function (event) {
+                var modal   = $(this);
                 var button  = $(event.relatedTarget);
                 var comment = button.data('comment');
-                console.log(comment);
-
-                var modal = $(this);
                 modal.find('.comment').html(comment.description);
                 modal.find('.parent_id').val(comment.id);
             });
@@ -60,6 +59,7 @@ $tree = function ($nodes, $level = 0) use (&$tree) {
                 <hr />
             @endforeach
             <p>Facile est hoc cernere in primis puerorum aetatulis. Graccho, eius fere, aequalí?</p>
+            <p>Post as: <span class="accountName"></span> [+<span class="accountStaked">xx,xxx</span>]</p>
             {!! Form::open(['route' => 'comments.store']) !!}
                 {!! Form::hidden('data[Comment][article_id]', $article->id) !!}
                 <div class="form-group">
@@ -72,8 +72,8 @@ $tree = function ($nodes, $level = 0) use (&$tree) {
         </div>
     </div>
     <div class="center text-center mt-4">
-            <a class="btn btn-secondary @if(!$prev) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $prev]) }}">&lt; prev article</a>
-            <a class="btn btn-secondary @if(!$next) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $next]) }}">next article &gt;</a>
+        <a class="btn btn-secondary @if(!$prev) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $prev]) }}">&lt; prev article</a>
+        <a class="btn btn-secondary @if(!$next) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $next]) }}">next article &gt;</a>
     </div>
 
     <div class="modal fade" id="reply" tabindex="-1" role="dialog" aria-hidden="true">
@@ -90,6 +90,7 @@ $tree = function ($nodes, $level = 0) use (&$tree) {
                     </div>
                     <div class="modal-body">
                         <blockquote class="blockquote comment"></blockquote>
+                        <p>Post as: <span class="accountName"></span> [+<span class="accountStaked">xx,xxx</span>]</p>
                         <div class="form-group">
                             {!! Form::textarea('data[Comment][description]', null, ['class' => 'form-control']) !!}
                         </div>
