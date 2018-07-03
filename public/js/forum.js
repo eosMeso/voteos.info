@@ -1,5 +1,8 @@
 /*jshint esversion: 6 */
 
+
+window.myEOS = {};
+
 document.addEventListener('scatterLoaded', scatterExtension => {
     // Scatter will now be available from the window scope.
     // At this stage the connection to Scatter from the application is
@@ -23,12 +26,12 @@ document.addEventListener('scatterLoaded', scatterExtension => {
     }
 
     var callback = function(eos, account) {
-
-        console.log(account);
         $('.accountName').text(account.name);
         $('.accountStaked').text(account.staked);
 
-    }
+        $('input[name="data[User][name]"]').val(account.name);
+        $('input[name="data[User][stake]"]').val(account.staked);
+    };
 
     scatter.getIdentity({accounts: [network]}).then(identity => {
         scatter.authenticate()
@@ -49,21 +52,32 @@ document.addEventListener('scatterLoaded', scatterExtension => {
                 });
 
                 eos.contract('eosforumtest').then(backend => {
-                    backend.post({
-                        "account":            "guytmobzgige",
-                        "post_uuid":          "2018062901",
-                        "title":              "[eosconstitution.io] New forum message",
-                        "content":            "This is a test to a message sent to the forum. \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duo Reges: constructio interrete. Ita relinquet duas, de quibus etiam atque etiam consideret. Quamquam te quidem video minime esse deterritum. ",
-                        "reply_to_account":   "",
-                        "reply_to_post_uuid": "",
-                        "certify":            1,
-                        "json_metadata":      ""
-                    }, eosOptions).then(response => {
-                        console.log(response);
-                    });
+
+                    window.myEOS = {
+                        eos: eos,
+                        eosOptions: eosOptions,
+                        backend:    backend,
+                        account:    account,
+                    };
+
                 });
             });
     }).catch(error => {
         console.log(['error', error]);
     });
-})
+});
+
+function post(message) {
+    backend = window.myEOS.backend;
+    var response = backend.post({
+        "account":            window.myEOS.account.name,
+        "post_uuid":          "2018062901",
+        "title":              "[eosconstitution.io] New forum message",
+        "content":            message,
+        "reply_to_account":   "",
+        "reply_to_post_uuid": "",
+        "certify":            1,
+        "json_metadata":      ""
+    }, window.myEOS.eosOptions);
+    return response;
+};
