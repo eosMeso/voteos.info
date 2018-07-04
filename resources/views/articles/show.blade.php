@@ -14,7 +14,7 @@ function tree($nodes, $level = 0) {
                           <i class="far fa-user"></i> {{ $node->user->name}}
                         | <i class="far fa-calendar-alt"></i> {{ $node->created_at->format('m/d/Y')}}
                         + <i class="fas fa-weight-hanging"></i> {{ $node->user->stake}}
-                        <a href="#" class="btn btn-sm btn-secondary float-right" data-toggle="modal" data-target="#reply" data-comment="{{ json_encode($node) }}">reply</a>
+                        <a href="#" class="btn btn-sm btn-secondary float-right eos" data-toggle="modal" data-target="#reply" data-comment="{{ json_encode($node) }}">reply</a>
                     </footer>
                 </blockquote>
                 <hr />
@@ -53,7 +53,7 @@ function tree($nodes, $level = 0) {
                 {!! tree($node) !!}
                 <hr />
             @endforeach
-            <p>Post as:
+            <p class="account">Post as:
                 <i class="far fa-user"></i> <span class="accountName"></span>
                 + <i class="fas fa-weight-hanging"></i> <span class="accountStaked">xx,xxx</span>
             </p>
@@ -66,7 +66,7 @@ function tree($nodes, $level = 0) {
                     {!! Form::textarea('data[Comment][description]', null, ['class' => 'form-control']) !!}
                 </div>
                 <center>
-                    <button type="submit" class="btn btn-primary">submit</button>
+                    <button type="submit" class="btn btn-primary eos">submit</button>
                 </center>
             {!! Form::close() !!}
         </div>
@@ -92,7 +92,7 @@ function tree($nodes, $level = 0) {
                     </div>
                     <div class="modal-body">
                         <blockquote class="blockquote comment"></blockquote>
-                        <p>Post as:
+                        <p class="account">Post as:
                             <i class="far fa-user"></i> <span class="accountName"></span>
                             + <i class="fas fa-weight-hanging"></i> <span class="accountStaked">xx,xxx</span>
                         </p>
@@ -102,7 +102,7 @@ function tree($nodes, $level = 0) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
-                        <button type="submit" class="btn btn-primary">reply</button>
+                        <button type="submit" class="btn btn-primary eos">reply</button>
                     </div>
                 {!! Form::close() !!}
             </div>

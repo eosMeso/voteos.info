@@ -61,7 +61,9 @@ document.addEventListener('scatterLoaded', scatterExtension => {
                 });
             });
     }).catch(error => {
-        console.log(['error', error]);
+        $('.eos').prop('disabled', 'disabled');
+        $('.eos').prop('title', 'Scatter is not installer or enabled for you to submit.');
+        $('.account').hide();
     });
 });
 

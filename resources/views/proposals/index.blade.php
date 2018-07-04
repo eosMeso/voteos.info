@@ -4,10 +4,7 @@
 
 @section('content')
     <p>
-        Let's build the constitution together! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bonum liberi: misera orbitas. Cur id non ita fit? Sed ad haec, nisi molestum est, habeo quae velim. Bonum negas esse divitias, praeposìtum esse dicis? Saepe ab Aristotele, a Theophrasto mirabiliter est laudata per se ipsa rerum scientia.
-    </p>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bonum liberi: misera orbitas. Cur id non ita fit? Sed ad haec, nisi molestum est, habeo quae velim. Bonum negas esse divitias, praeposìtum esse dicis? Saepe ab Aristotele, a Theophrasto mirabiliter est laudata per se ipsa rerum scientia.
+        Let's build the constitution together!
     </p>
     <div class="row">
         <div class="col-3">
@@ -15,11 +12,8 @@
             <p>
                 Do you have a strong opinion for multiple changes? Create your own constitution proposal.
             </p>
-            <p>
-                Sin eam, quam Hieronymus, ne fecisset idem, ut voluptatem illam Aristippi in prima commendatione poneret. Philosophi autem in suis lectulis plerumque moriuntur
-            </p>
             <center>
-                <a class="btn btn-primary" href="{{ route('proposals.create') }}">Create your own proposal</a>
+                <a class="btn btn-primary disabled" disabled="disabled" href="{{ route('proposals.create') }}">Create your own proposal</a>
             </center>
         </div>
         <div class="col-9">
