@@ -84,7 +84,7 @@ async function post(message) {
 
 
 $(function() {
-    $('#reply').on('show.bs.modal', function (event) {
+    $(document).on('show.bs.modal', function (event) {
         var modal   = $(this);
         var button  = $(event.relatedTarget);
         var comment = button.data('comment');
@@ -92,19 +92,20 @@ $(function() {
         modal.find('.parent_id').val(comment.id);
 
         var form = $(form, modal);
+    });
 
-        $(document).on('submit', form, async function(event) {
-            var form = event.target;
-            if ( !$(form).data('transaction')) {
-                event.preventDefault();
-                var comment  = $(form).find('[name="data[Comment][description]"]').val();
-                var response = await post(comment);
-                if (response) {
-                    $(form).data('transaction', response);
-                    $(form).submit();
-                }
+
+    $(document).on('submit', 'form', async function(event) {
+        var form = event.target;
+        if ( !$(form).data('transaction')) {
+            event.preventDefault();
+            var comment  = $(form).find('[name="data[Comment][description]"]').val();
+            var response = await post(comment);
+            if (response) {
+                $(form).data('transaction', response);
+                $(form).submit();
             }
-            return $(form).data('transaction');
-        });
+        }
+        return $(form).data('transaction');
     });
 });
