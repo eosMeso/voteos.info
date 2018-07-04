@@ -31,9 +31,16 @@
                     </div>
                     <div class="col-10">
                         <p>{!! $element->description !!}</p>
+
+                        <p>
+                            <a href="{{ route('proposals.show', $element->id) }}">
+                                Read the proposal.
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
+            <hr />
             @endforeach
         </div>
     </div>
