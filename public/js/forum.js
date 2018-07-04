@@ -16,9 +16,7 @@ document.addEventListener('scatterLoaded', scatterExtension => {
     const network = {
 
         protocol:'http', // Defaults to https
-        // host: 'node.eosmeso.io',
-        // host: 'peers.eosbp.network',
-        host: 'test.eosbp.network',
+        host: EOS_NODE,
         port: 8888,
 
         blockchain: 'eos',
@@ -67,9 +65,10 @@ document.addEventListener('scatterLoaded', scatterExtension => {
     });
 });
 
-function post(message) {
+async function post(message) {
+    if (!message) throw "Empty message";
     backend = window.myEOS.backend;
-    var response = backend.post({
+    var response = await backend.post({
         "account":            window.myEOS.account.name,
         "post_uuid":          "2018062901",
         "title":              "[eosconstitution.io] New forum message",
@@ -79,5 +78,33 @@ function post(message) {
         "certify":            1,
         "json_metadata":      ""
     }, window.myEOS.eosOptions);
-    return response;
-};
+    var approved = ((response.broadcast === true) && response.transaction_id);
+    return approved;
+}
+
+
+$(function() {
+    $('#reply').on('show.bs.modal', function (event) {
+        var modal   = $(this);
+        var button  = $(event.relatedTarget);
+        var comment = button.data('comment');
+        modal.find('.comment').html(comment.description);
+        modal.find('.parent_id').val(comment.id);
+
+        var form = $(form, modal);
+
+        $(document).on('submit', form, async function(event) {
+            var form = event.target;
+            if ( !$(form).data('transaction')) {
+                event.preventDefault();
+                var comment  = $(form).find('[name="data[Comment][description]"]').val();
+                var response = await post(comment);
+                if (response) {
+                    $(form).data('transaction', response);
+                    $(form).submit();
+                }
+            }
+            return $(form).data('transaction');
+        });
+    });
+});

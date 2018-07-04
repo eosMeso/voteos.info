@@ -28,29 +28,11 @@ function tree($nodes, $level = 0) {
 @section('content')
     <script src="{{ asset('js/forum.js') }}"></script>
     <script>
-        $(function() {
-            $('#reply').on('show.bs.modal', function (event) {
-                var modal   = $(this);
-                var button  = $(event.relatedTarget);
-                var comment = button.data('comment');
-                modal.find('.comment').html(comment.description);
-                modal.find('.parent_id').val(comment.id);
-
-                /*
-                return modal.find('form').submit(function() {
-                    var data = $(this).serializeArray();
-                    var comment  = $(this).find('[name="data[Comment][description]"]').val();
-                    // var response = await post(comment);
-                    console.log(response);
-                    return response;
-                })
-                */
-            });
-        });
     </script>
     <style>
         .forumPost {padding: 0.5em 0 0 0.5em;}
-        .forumPost .blockquote {font-size: 1em;}
+        .blockquote {font-size: 1em;}
+        #reply .modal-dialog {max-width: 75%}
     </style>
 
     <h2>{{ $proposal->name }}</h2>
@@ -71,7 +53,6 @@ function tree($nodes, $level = 0) {
                 {!! tree($node) !!}
                 <hr />
             @endforeach
-            <p>Facile est hoc cernere in primis puerorum aetatulis. Graccho, eius fere, aequalí?</p>
             <p>Post as:
                 <i class="far fa-user"></i> <span class="accountName"></span>
                 + <i class="fas fa-weight-hanging"></i> <span class="accountStaked">xx,xxx</span>
@@ -79,6 +60,8 @@ function tree($nodes, $level = 0) {
 
             {!! Form::open(['route' => 'comments.store']) !!}
                 {!! Form::hidden('data[Comment][article_id]', $article->id) !!}
+                <input name="data[User][name]" type="hidden" />
+                <input name="data[User][stake]" type="hidden" />
                 <div class="form-group">
                     {!! Form::textarea('data[Comment][description]', null, ['class' => 'form-control']) !!}
                 </div>
