@@ -36,7 +36,8 @@ function tree($nodes, $level = 0) {
     </style>
 
     <h2>{{ $proposal->name }}</h2>
-    <p>{!! nl2br(e($proposal->description)) !!}</p>
+    <p>{!! $proposal->description !!}</p>
+
     <div class="center text-center m-4">
         <a class="btn btn-secondary @if(!$prev) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $prev]) }}">&lt; prev article</a>
         <a class="btn btn-secondary @if(!$next) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $next]) }}">next article &gt;</a>

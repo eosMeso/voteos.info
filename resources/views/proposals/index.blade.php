@@ -30,7 +30,7 @@
                         </a>
                     </div>
                     <div class="col-10">
-                        <p>{!! nl2br(e($element->description)) !!}</p>
+                        <p>{!! $element->description !!}</p>
                     </div>
                 </div>
             </div>
