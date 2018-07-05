@@ -38,22 +38,29 @@ function tree($nodes, $level = 0) {
     <h2>{{ $proposal->name }}</h2>
     <p>{!! $proposal->description !!}</p>
 
-    <div class="center text-center m-4">
-        <a class="btn btn-secondary @if(!$prev) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $prev]) }}">&lt; prev article</a>
-        <a class="btn btn-secondary @if(!$next) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $next]) }}">next article &gt;</a>
-    </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-4">
             <div class="jumbotron">
                 <h3>{{ $article->name }}</h3>
                 <p class="lead">{{ $article->description }}</p>
             </div>
+            <div class="center text-center m-4">
+                <a class="btn btn-secondary @if(!$prev) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $prev]) }}"><i class="fas fa-angle-left"></i> prev article</a>
+                <a class="btn btn-secondary @if(!$next) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $next]) }}">next article <i class="fas fa-angle-right"></i></a>
+            </div>
         </div>
-        <div class="col-6">
+        <div class="col-8">
             @foreach ($forum as $node)
                 {!! tree($node) !!}
-                <hr />
             @endforeach
+
+            @if ($forum)
+            <div class="center text-center mt-4">
+                    <a class="btn btn-secondary @if(!$prev) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $prev]) }}"><i class="fas fa-angle-left"></i> prev article</a>
+                    <a class="btn btn-secondary @if(!$next) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $next]) }}">next article <i class="fas fa-angle-right"></i></a>
+            </div>
+            <hr />
+            @endif
             <p class="account">Post as:
                 <i class="far fa-user"></i> <span class="accountName"></span>
                 + <i class="fas fa-weight-hanging"></i> <span class="accountStaked">xx,xxx</span>
@@ -71,10 +78,6 @@ function tree($nodes, $level = 0) {
                 </center>
             {!! Form::close() !!}
         </div>
-    </div>
-    <div class="center text-center mt-4">
-        <a class="btn btn-secondary @if(!$prev) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $prev]) }}">&lt; prev article</a>
-        <a class="btn btn-secondary @if(!$next) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $next]) }}">next article &gt;</a>
     </div>
 
     <div class="modal fade" id="reply" tabindex="-1" role="dialog" aria-hidden="true">
