@@ -61,8 +61,8 @@ html {
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
+  background-image:  url('../img/bg.jpg');
   */
-  background-image: url("../img/bg.jpg");
 }
 /* line 12, ../sass/eosconstitution.scss */
 html body {
