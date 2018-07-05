@@ -9,7 +9,7 @@ function tree($nodes, $level = 0) {
         ?>
             <div class="forumPost border-left">
                 <blockquote class="blockquote">
-                    <p>{{ $node->description }}</p>
+                    <p>{!! $node->description !!}</p>
                     <footer class="blockquote-footer">
                           <i class="far fa-user"></i> {{ $node->user->name}}
                         | <i class="far fa-calendar-alt"></i> {{ $node->created_at->format('m/d/Y')}}
