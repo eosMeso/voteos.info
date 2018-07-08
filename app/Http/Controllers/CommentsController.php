@@ -19,16 +19,13 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        $eos = getEnv('EOS_NODE');
-        $eos = "http://$eos:8888";
-        $eos = new EOSClient($eos);
-
+        $eos  = getEnv('EOS_PROT').'://'.getEnv('EOS_NODE').':'.getEnv('EOS_PORT');
+        $eos  = new EOSClient($eos);
         $data = $request->all();
-
-        $account = $data['data']['User']['name'];
         try {
-            $account = $eos->chain()->getAccount($account);
-            $account->stake = ($account->net_weight + $account->cpu_weight) / (10 * 1000);
+            $transaction = $eos->history()->getTransaction($data['data']['Comment']['transaction']);
+            $transaction = $transaction->traces[0]->act->data;
+            $account     = $eos->chain()->getAccount($transaction->account);
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
@@ -38,13 +35,14 @@ class CommentsController extends Controller
             $user = new User();
             $user->name = $account->account_name;
         }
-        $user->stake = $account->stake;
+        $user->stake = ($account->net_weight + $account->cpu_weight) / (10 * 1000);
         $user->save();
 
         $element = new Comment();
         $element->user_id     = $user->id;
         $element->article_id  = $data['data']['Comment']['article_id'];
-        $element->description = $data['data']['Comment']['description'];
+        $element->description = $transaction->content;
+        $element->transaction = $data['data']['Comment']['transaction'];
 
         if (!empty($data['data']['Comment']['parent_id'])) {
             $element->parent_id = $data['data']['Comment']['parent_id'];

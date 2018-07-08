@@ -21,6 +21,8 @@
     <script src="https://cdn.jsdelivr.net/npm/eosjs@15.0.3/lib/eos.min.js" integrity="sha512-QX0dPq5pyX33coEuy5x1UqKHFDeveQYMp7Sz+qOUwRL9mol4QDvViU+QAjd+k6P7QjPjrDCoyhK1kz2GDxCP9A==" crossorigin="anonymous"></script>
     <script>
         const EOS_NODE = '{{ getEnv('EOS_NODE')}}';
+        const EOS_PORT = '{{ getEnv('EOS_PORT')}}';
+        const EOS_PROT = '{{ getEnv('EOS_PROT')}}';
     </script>
 
     <title>eosconstitution.io | @yield('title')</title>

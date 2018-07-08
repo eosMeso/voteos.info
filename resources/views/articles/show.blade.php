@@ -11,10 +11,13 @@ function tree($nodes, $level = 0) {
                 <blockquote class="blockquote">
                     <p>{!! $node->description !!}</p>
                     <footer class="blockquote-footer">
-                          <i class="far fa-user"></i> {{ $node->user->name}}
-                        | <i class="far fa-calendar-alt"></i> {{ $node->created_at->format('m/d/Y')}}
-                        + <i class="fas fa-weight-hanging"></i> {{ $node->user->stake}}
-                        <a href="#" class="btn btn-sm btn-secondary float-right eos" data-toggle="modal" data-target="#reply" data-comment="{{ json_encode($node) }}">reply</a>
+                        <i class="far fa-user"></i> <a target="_blank" href="https://eostracker.io/accounts/{{ $node->user->name}}">{{ $node->user->name}}</a>
+                        <i class="fas fa-weight-hanging"></i> {{ number_format($node->user->stake, 0)}}
+                        <i class="far fa-calendar-alt"></i> {{ $node->created_at->format('m/d/Y')}}
+                        <a href="https://eostracker.io/transactions/{{$node->transaction}}" target="_blank" title="analyze the transaction stored in the chain"><i class="fas fa-link"></i>  {{ substr($node->transaction, 0, 4)}}…</a>
+                        <a href="#" class="text-success"><i class="far fa-thumbs-up"></i>  + {{ number_format($node->votes_up, 0) }}</a>
+                        <a href="#" class="text-danger"><i class="far fa-thumbs-down"></i> - {{ number_format($node->votes_down, 0) }}</a>
+                        <a href="#" class="btn btn-sm btn-secondary float-right eos" data-toggle="modal" data-target="#reply" data-parent="{{ json_encode($node) }}">reply</a>
                     </footer>
                 </blockquote>
                 <hr />
@@ -28,6 +31,7 @@ function tree($nodes, $level = 0) {
 @section('content')
     <script src="{{ asset('js/forum.js') }}"></script>
     <script>
+        const POST_ID = '{{ url()->full() }}';
     </script>
     <style>
         .forumPost {padding: 0.5em 0 0 0.5em;}
@@ -67,9 +71,8 @@ function tree($nodes, $level = 0) {
             </p>
 
             {!! Form::open(['route' => 'comments.store']) !!}
+                {!! Form::hidden('data[Comment][transaction]') !!}
                 {!! Form::hidden('data[Comment][article_id]', $article->id) !!}
-                <input name="data[User][name]" type="hidden" />
-                <input name="data[User][stake]" type="hidden" />
                 <div class="form-group">
                     {!! Form::textarea('data[Comment][description]', null, ['class' => 'form-control']) !!}
                 </div>
@@ -84,10 +87,9 @@ function tree($nodes, $level = 0) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 {!! Form::open(['route' => 'comments.store']) !!}
+                    {!! Form::hidden('data[Comment][transaction]') !!}
                     {!! Form::hidden('data[Comment][article_id]', $article->id) !!}
-                    <input name="data[Comment][parent_id]" class="parent_id" type="hidden" />
-                    <input name="data[User][name]" type="hidden" />
-                    <input name="data[User][stake]" type="hidden" />
+                    {!! Form::hidden('data[Comment][parent_id]', $article->id) !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="title">Reply:</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
