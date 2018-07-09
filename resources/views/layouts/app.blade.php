@@ -60,7 +60,11 @@
         <footer class="text-center">
             <hr />
             <p>
-                eosconstitution.io is another service provided by <a target="_blank" href="https://eosmeso.io">eosmeso.io</a> © 2018
+                <a href="https://github.com/eosMeso/eosconstitution.io" target="_blank">
+                    eosconstitution.io
+                    <i class="fab fa-github"></i>
+                </a>
+                is another service provided by <a target="_blank" href="https://eosmeso.io">eosmeso.io</a> © 2018
             </p>
         </footer>
     </div>

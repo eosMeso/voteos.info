@@ -110,7 +110,7 @@ $(function() {
         var form = $('form', modal);
         $(form, modal).data('parent', parent);
         modal.find('.comment').html(parent.description);
-        modal.find('.parent_id').val(parent.id);
+        modal.find('[name="data[Comment][parent_id]"]').val(parent.id);
     });
 
     $(document).on('submit', 'form', async function(event) {

@@ -98,7 +98,7 @@ function tree($nodes, $level = 0) {
                 {!! Form::open(['route' => 'comments.store']) !!}
                     {!! Form::hidden('data[Comment][transaction]') !!}
                     {!! Form::hidden('data[Comment][article_id]', $article->id) !!}
-                    {!! Form::hidden('data[Comment][parent_id]', $article->id) !!}
+                    {!! Form::hidden('data[Comment][parent_id]') !!}
                     <div class="modal-header">
                         <h5 class="modal-title" id="title">Reply:</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
