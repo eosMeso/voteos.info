@@ -80,7 +80,10 @@ function tree($nodes, $level = 0) {
                 {!! Form::hidden('data[Comment][transaction]') !!}
                 {!! Form::hidden('data[Comment][article_id]', $article->id) !!}
                 <div class="form-group">
-                    {!! Form::textarea('data[Comment][description]', null, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('data[Comment][description]', null, [
+                        'class' => 'form-control',
+                        'placeholder' => 'Do you have something to say about this proposal? Share your ideas with us!',
+                    ]) !!}
                 </div>
                 <center>
                     <button type="submit" class="btn btn-primary eos">submit</button>
@@ -109,7 +112,10 @@ function tree($nodes, $level = 0) {
                             + <i class="fas fa-weight-hanging"></i> <span class="accountStaked">xx,xxx</span>
                         </p>
                         <div class="form-group">
-                            {!! Form::textarea('data[Comment][description]', null, ['class' => 'form-control']) !!}
+                            {!! Form::textarea('data[Comment][description]', null, [
+                                'class' => 'form-control',
+                                'placeholder' => 'Do you have something to say about this proposal? Share your ideas with us!',
+                            ]) !!}
                         </div>
                     </div>
                     <div class="modal-footer">
