@@ -59,6 +59,7 @@ document.addEventListener('scatterLoaded', scatterExtension => {
     }).catch(error => {
         $('.eos').prop('disabled', 'disabled');
         $('.eos').prop('title', 'Scatter is not installer or enabled for you to submit.');
+        $('[title]').tooltip();
         $('.account').hide();
     });
 });
@@ -82,6 +83,25 @@ async function post(message, parent) {
 }
 
 
+async function vote(post, vote) {
+    backend = window.myEOS.backend;
+    var post_uuid = POST_ID;
+    var response  = false;
+    try {
+        response = await backend.vote({
+            voter:            window.myEOS.account.name,
+            proposition:      post_uuid + "#comment-" + post.id,
+            vote_value:       vote,
+            proposition_hash: '',
+        }, window.myEOS.eosOptions);
+    } catch (err) {
+        return false;
+    }
+    var approved = ((response.broadcast === true) && response.transaction_id);
+    return approved;
+}
+
+
 $(function() {
     $(document).on('show.bs.modal', function (event) {
         var modal  = $(this);
@@ -92,7 +112,6 @@ $(function() {
         modal.find('.comment').html(parent.description);
         modal.find('.parent_id').val(parent.id);
     });
-
 
     $(document).on('submit', 'form', async function(event) {
         var form = event.target;
@@ -109,5 +128,22 @@ $(function() {
         return $(form).data('transaction');
     });
 
+    $(document).on('click', '.vote4comment', async function(event) {
+        event.preventDefault();
+        var link        = this;
+        var data        = $(this).data();
+        var sumOld      = $('.sum', link).html();
+        $('.sum', link).html('<i class = "fa fa-spinner fa-spin"></i>');
+        var transaction = await vote(data.comment, data.vote);
+        if (!transaction) {
+            $('.sum', link).html(sumOld);
+        } else {
+            $.post('/votes4comments', {transaction: transaction,}, function(data) {
+                $('.sum', link).html(data);
+            });
+        }
+    });
+
+    $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
     $('[title]').tooltip();
 });

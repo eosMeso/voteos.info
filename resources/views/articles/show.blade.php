@@ -15,8 +15,14 @@ function tree($nodes, $level = 0) {
                         <i class="fas fa-weight-hanging"></i> {{ number_format($node->user->stake, 0)}}
                         <i class="far fa-calendar-alt"></i> {{ $node->created_at->format('m/d/Y')}}
                         <a href="https://eostracker.io/transactions/{{$node->transaction}}" target="_blank" title="analyze the transaction stored in the chain"><i class="fas fa-link"></i>  {{ substr($node->transaction, 0, 4)}}…</a>
-                        <a href="#" class="text-success"><i class="far fa-thumbs-up"></i>  + {{ number_format($node->votes_up, 0) }}</a>
-                        <a href="#" class="text-danger"><i class="far fa-thumbs-down"></i> - {{ number_format($node->votes_down, 0) }}</a>
+                        <a href="#" class="eos vote4comment text-success" data-comment="{{ json_encode($node) }}" data-vote="up">
+                            <i class="far fa-thumbs-up"></i>
+                            + <span class="sum">{{ number_format($node->votes('up'), 0) }}</span>
+                        </a>
+                        <a href="#" class="eos vote4comment text-danger"  data-comment="{{ json_encode($node) }}" data-vote="down">
+                            <i class="far fa-thumbs-down"></i>
+                            - <span class="sum">{{ number_format($node->votes('down'), 0) }}</span>
+                        </a>
                         <a href="#" class="btn btn-sm btn-secondary float-right eos" data-toggle="modal" data-target="#reply" data-parent="{{ json_encode($node) }}">reply</a>
                     </footer>
                 </blockquote>

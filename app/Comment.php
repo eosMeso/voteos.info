@@ -23,5 +23,23 @@ class Comment extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
+    }    /**
+    * @DBRM
+    */
+   public function votes4comments()
+   {
+       return $this->hasMany(Votes4comment::class);
+   }
+
+
+   public function votes($type)
+   {
+       $votes = $this->votes4comments()->where('value', $type)->get();
+       $sum   = 0;
+       foreach ($votes as $vote) {
+           $sum += $vote->user->stake;
+       }
+       return $sum;
+   }
+
 }

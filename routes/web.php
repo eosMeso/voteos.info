@@ -16,4 +16,4 @@ Route::get('/', 'ProposalsController@index');
 Route::resource('comments',            'CommentsController');
 Route::resource('proposals',           'ProposalsController');
 Route::resource('proposals.articles',  'ArticlesController');
-Route::resource('proposal-supporters', 'ProposalSupportersController');
+Route::resource('votes4comments',      'Votes4commentsController');
