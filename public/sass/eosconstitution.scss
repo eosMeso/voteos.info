@@ -1,21 +1,30 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
-@import url('https://fonts.googleapis.com/css?family=Italianno');
 @import '_laravel';
 
 html {
-    /*
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
+
     background-image:  url('../img/bg.jpg');
-    */
+    background-attachment: fixed;
+    background-position: bottom;
+    background-repeat: repeat-x;
+
     body {
-        background-color: transparent;
         color: black;
-    }
+        background-image:  url('../img/bg.jpg');
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: repeat-x;
 
-    h1, h2, h3 {
-        font-family: 'Italianno', cursive;
+        > div.container {
+            background: white;
+        }
     }
+    h1 a:hover {text-decoration: none;}
 
+    blockquote p {margin-bottom: 0.4em;}
+
+
+    .forumPost {padding: 0.5em 0 0 0.5em;}
+    .blockquote {font-size: 1em;}
+    #reply .modal-dialog {max-width: 75%}
 }

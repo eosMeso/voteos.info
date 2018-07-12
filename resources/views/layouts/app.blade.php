@@ -8,6 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/eosconstitution.css') }}" />
 
     <!-- Font Awesome -->
@@ -29,15 +30,55 @@
     <title>eosconstitution.io | @yield('title')</title>
   </head>
   <body>
-    <div class="container">
-        <center class="flex-center pt-5">
-            <h1>
-                <a href="{{ url('/') }}">We the EOS People</a>
-                <br />
-                <small class="text-muted">eosconstitution.io</small>
-            </h1>
-        </center>
+    <div class="container border-left border-bottom border-right border-primary">
 
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="{{ url('/') }}" style="font-size: 1.5em;">
+                <i class="far fa-check-square" style="transform: rotate(-20deg);"></i>
+                voteos.info
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav pull-right">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/pages/about') }}"">block producers</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/pages/about') }}"">constitutions</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/pages/about') }}"">working proposals</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/pages/about') }}"">general discusions</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/pages/about') }}"">about</a>
+                        </li>
+                    </ul>
+            </div>
+        </nav>
+
+
+        <h1 class="text-center m-4">
+            <a href="{{ url('/') }}">
+                <i class="far fa-check-square" style="transform: rotate(-20deg);"></i>
+                voteos.info
+            </a><br />
+            <small class="text-muted">vote informed, vote smart</small>
+        </h1>
 
 
         <div class="position-ref">
@@ -57,11 +98,11 @@
             </div>
         </div>
 
-        <footer class="text-center">
+        <footer class="text-center pb-2">
             <hr />
             <p>
                 <a href="https://github.com/eosMeso/eosconstitution.io" target="_blank">
-                    eosconstitution.io
+                    <i class="far fa-check-square" style="transform: rotate(-20deg);"></i> voteos.info
                     <i class="fab fa-github"></i>
                 </a>
                 is another service provided by <a target="_blank" href="https://eosmeso.io">eosmeso.io</a> © 2018

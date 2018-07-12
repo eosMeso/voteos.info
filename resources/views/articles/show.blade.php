@@ -39,11 +39,6 @@ function tree($nodes, $level = 0) {
     <script>
         const POST_ID = '{{ url()->full() }}';
     </script>
-    <style>
-        .forumPost {padding: 0.5em 0 0 0.5em;}
-        .blockquote {font-size: 1em;}
-        #reply .modal-dialog {max-width: 75%}
-    </style>
 
     <h2>{{ $proposal->name }}</h2>
     <p>{!! $proposal->description !!}</p>

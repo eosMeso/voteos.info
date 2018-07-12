@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway");
-@import url("https://fonts.googleapis.com/css?family=Italianno");
 /* line 1, ../sass/_laravel.scss */
 html, body {
   background-color: #fff;
@@ -55,21 +54,42 @@ html, body {
   margin-bottom: 30px;
 }
 
-/* line 5, ../sass/eosconstitution.scss */
+/* line 4, ../sass/eosconstitution.scss */
 html {
-  /*
-  background-size: cover;
+  background-image: url("../img/bg.jpg");
   background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-image:  url('../img/bg.jpg');
-  */
+  background-position: bottom;
+  background-repeat: repeat-x;
 }
-/* line 12, ../sass/eosconstitution.scss */
+/* line 11, ../sass/eosconstitution.scss */
 html body {
-  background-color: transparent;
   color: black;
+  background-image: url("../img/bg.jpg");
+  background-attachment: fixed;
+  background-position: bottom;
+  background-repeat: repeat-x;
 }
-/* line 17, ../sass/eosconstitution.scss */
-html h1, html h2, html h3 {
-  font-family: 'Italianno', cursive;
+/* line 18, ../sass/eosconstitution.scss */
+html body > div.container {
+  background: white;
+}
+/* line 22, ../sass/eosconstitution.scss */
+html h1 a:hover {
+  text-decoration: none;
+}
+/* line 24, ../sass/eosconstitution.scss */
+html blockquote p {
+  margin-bottom: 0.4em;
+}
+/* line 27, ../sass/eosconstitution.scss */
+html .forumPost {
+  padding: 0.5em 0 0 0.5em;
+}
+/* line 28, ../sass/eosconstitution.scss */
+html .blockquote {
+  font-size: 1em;
+}
+/* line 29, ../sass/eosconstitution.scss */
+html #reply .modal-dialog {
+  max-width: 75%;
 }

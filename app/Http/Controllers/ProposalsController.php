@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Proposal;
+use App\Comment;
 use Illuminate\Http\Request;
 
 class ProposalsController extends Controller
@@ -16,7 +17,8 @@ class ProposalsController extends Controller
     public function index()
     {
         $elements = Proposal::all()->sortByDesc('updated_at');
-        return view('proposals.index', compact('elements'));
+        $comments = Comment::paginate(15)->sortByDesc('updated_at');
+        return view('proposals.index', compact('elements', 'comments'));
     }
 
     /**
