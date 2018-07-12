@@ -54,14 +54,14 @@ html, body {
   margin-bottom: 30px;
 }
 
-/* line 4, ../sass/eosconstitution.scss */
+/* line 4, ../sass/voteos.scss */
 html {
   background-image: url("../img/bg.jpg");
   background-attachment: fixed;
   background-position: bottom;
   background-repeat: repeat-x;
 }
-/* line 11, ../sass/eosconstitution.scss */
+/* line 11, ../sass/voteos.scss */
 html body {
   color: black;
   background-image: url("../img/bg.jpg");
@@ -69,27 +69,27 @@ html body {
   background-position: bottom;
   background-repeat: repeat-x;
 }
-/* line 18, ../sass/eosconstitution.scss */
+/* line 18, ../sass/voteos.scss */
 html body > div.container {
   background: white;
 }
-/* line 22, ../sass/eosconstitution.scss */
+/* line 22, ../sass/voteos.scss */
 html h1 a:hover {
   text-decoration: none;
 }
-/* line 24, ../sass/eosconstitution.scss */
+/* line 24, ../sass/voteos.scss */
 html blockquote p {
   margin-bottom: 0.4em;
 }
-/* line 27, ../sass/eosconstitution.scss */
+/* line 27, ../sass/voteos.scss */
 html .forumPost {
   padding: 0.5em 0 0 0.5em;
 }
-/* line 28, ../sass/eosconstitution.scss */
+/* line 28, ../sass/voteos.scss */
 html .blockquote {
   font-size: 1em;
 }
-/* line 29, ../sass/eosconstitution.scss */
+/* line 29, ../sass/voteos.scss */
 html #reply .modal-dialog {
   max-width: 75%;
 }

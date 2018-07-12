@@ -71,7 +71,7 @@ async function post(message, parent) {
     var response = await backend.post({
         "account":            window.myEOS.account.name,
         "post_uuid":          post_uuid,
-        "title":              (!parent) ? "eosconstitution.io message" :  '',
+        "title":              (!parent) ? "voteos.info message" :  '',
         "content":            message,
         "reply_to_account":   (parent && parent.user.name) ? parent.user.name :  '',
         "reply_to_post_uuid": (parent && parent.id) ? post_uuid + "#comment-" + parent.id : '',

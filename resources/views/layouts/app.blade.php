@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/eosconstitution.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/voteos.css') }}" />
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -27,7 +27,7 @@
         const EOS_PROT = '{{ getEnv('EOS_PROT')}}';
     </script>
 
-    <title>eosconstitution.io | @yield('title')</title>
+    <title>voteos.info | @yield('title')</title>
   </head>
   <body>
     <div class="container border-left border-bottom border-right border-primary">
@@ -101,7 +101,7 @@
         <footer class="text-center pb-2">
             <hr />
             <p>
-                <a href="https://github.com/eosMeso/eosconstitution.io" target="_blank">
+                <a href="https://github.com/eosMeso/voteos.info" target="_blank">
                     <i class="far fa-check-square" style="transform: rotate(-20deg);"></i> voteos.info
                     <i class="fab fa-github"></i>
                 </a>
