@@ -25,7 +25,7 @@ class CommentsController extends Controller
         try {
             $transaction = $eos->history()->getTransaction($data['data']['Comment']['transaction']);
             $transaction = $transaction->traces[0]->act->data;
-            $account     = $eos->chain()->getAccount($transaction->account);
+            $account     = $eos->chain()->getAccount($transaction->poster);
         } catch (\Exception $e) {
             dd($e->getMessage());
         }

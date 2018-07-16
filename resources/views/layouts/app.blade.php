@@ -32,7 +32,7 @@
   <body>
     <div class="container border-left border-bottom border-right border-primary">
 
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-md navbar-light bg-faded">
             <a class="navbar-brand" href="{{ url('/') }}" style="font-size: 1.5em;">
                 <i class="far fa-check-square" style="transform: rotate(-20deg);"></i>
                 voteos.info
@@ -43,31 +43,31 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav pull-right">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/pages/about') }}"">block producers</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/pages/about') }}"">constitutions</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/pages/about') }}"">working proposals</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/pages/about') }}"">general discusions</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/pages/about') }}"">about</a>
-                        </li>
-                    </ul>
+                <ul class="navbar-nav ml-auto">
+                    <!--
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/pages/about') }}">block producers</a>
+                    </li>
+                    -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/pages/about') }}">constitutions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/pages/about') }}">working proposals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/pages/about') }}">general discusions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/proposals/create') }}">
+                            <i class="fa fa-plus"></i>
+                            create proposal
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/pages/about') }}">about</a>
+                    </li>
+                </ul>
             </div>
         </nav>
 

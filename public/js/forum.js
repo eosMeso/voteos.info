@@ -69,19 +69,17 @@ async function post(message, parent) {
     backend = window.myEOS.backend;
     var post_uuid = POST_ID;
     var response = await backend.post({
-        "account":            window.myEOS.account.name,
+        "poster":             window.myEOS.account.name,
         "post_uuid":          post_uuid,
-        "title":              (!parent) ? "voteos.info message" :  '',
         "content":            message,
-        "reply_to_account":   (parent && parent.user.name) ? parent.user.name :  '',
+        "reply_to_poster":    (parent && parent.user.name) ? parent.user.name :  '',
         "reply_to_post_uuid": (parent && parent.id) ? post_uuid + "#comment-" + parent.id : '',
-        "certify":            1,
+        "certify":            0,
         "json_metadata":      ""
     }, window.myEOS.eosOptions);
     var approved = ((response.broadcast === true) && response.transaction_id);
     return approved;
 }
-
 
 async function vote(post, vote) {
     backend = window.myEOS.backend;
@@ -89,12 +87,16 @@ async function vote(post, vote) {
     var response  = false;
     try {
         response = await backend.vote({
-            voter:            window.myEOS.account.name,
-            proposition:      post_uuid + "#comment-" + post.id,
-            vote_value:       vote,
-            proposition_hash: '',
+            voter:         window.myEOS.account.name,
+            proposer:      post.user.name,
+            proposal:      post_uuid + "#comment-" + post.id,
+            proposal_name: post.user.name,
+            proposal_hash: '',
+            vote:          vote,
+            vote_json:     '',
         }, window.myEOS.eosOptions);
-    } catch (err) {
+    } catch (error) {
+        alert(error);
         return false;
     }
     var approved = ((response.broadcast === true) && response.transaction_id);
