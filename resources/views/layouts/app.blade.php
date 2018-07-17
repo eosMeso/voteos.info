@@ -65,7 +65,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/pages/about') }}">about</a>
+                        <a class="nav-link" href="{{ page_url('about') }}">about</a>
                     </li>
                 </ul>
             </div>
