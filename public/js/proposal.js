@@ -64,14 +64,6 @@ document.addEventListener('scatterLoaded', scatterExtension => {
     });
 });
 
-/**
- *
- * @param {                const account_name ,
-                const name         proposal_name,
-                const std::string& title,
-                const std::string& proposal_json} message
- * @param {*} parent
- */
 async function post(data) {
 
 
