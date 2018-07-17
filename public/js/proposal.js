@@ -64,63 +64,61 @@ document.addEventListener('scatterLoaded', scatterExtension => {
     });
 });
 
-async function post(message, parent) {
-    if (!message) throw "Empty message";
+/**
+ *
+ * @param {                const account_name ,
+                const name         proposal_name,
+                const std::string& title,
+                const std::string& proposal_json} message
+ * @param {*} parent
+ */
+async function post(data) {
+
+
     backend = window.myEOS.backend;
-    var post_uuid = POST_ID;
-    var response = await backend.post({
-        "poster":             window.myEOS.account.name,
-        "post_uuid":          post_uuid,
-        "content":            message,
-        "reply_to_poster":    (parent && parent.user.name) ? parent.user.name :  '',
-        "reply_to_post_uuid": (parent && parent.id) ? post_uuid + "#comment-" + parent.id : '',
-        "certify":            0,
-        "json_metadata":      ""
+    var r =     await backend.unpropose({
+        proposer:      window.myEOS.account.name,
+        proposal_name: data.name,
+    }, window.myEOS.eosOptions);
+    console.log(r);
+    return false;
+
+
+    backend = window.myEOS.backend;
+    var response = await backend.propose({
+        proposer:      window.myEOS.account.name,
+        proposal_name: data.name,
+        title:         data.title,
+        proposal_json: JSON.stringify({
+            type:        data.type,
+            description: data.description,
+            content:     data.content,
+        }),
     }, window.myEOS.eosOptions);
     var approved = ((response.broadcast === true) && response.transaction_id);
-    return approved;
-}
-
-async function vote(post, vote) {
-    backend = window.myEOS.backend;
-    var post_uuid = POST_ID;
-    var response  = false;
-    try {
-        response = await backend.vote({
-            voter:         window.myEOS.account.name,
-            proposer:      post.user.name,
-            proposal:      post_uuid + "#comment-" + post.id,
-            proposal_name: post.user.name,
-            proposal_hash: '',
-            vote:          vote,
-            vote_json:     '',
-        }, window.myEOS.eosOptions);
-    } catch (error) {
-        alert(error);
-        return false;
-    }
-    var approved = ((response.broadcast === true) && response.transaction_id);
+    console.log(approved);
     return approved;
 }
 
 
 $(function() {
-    $(document).on('show.bs.modal', function (event) {
-        var modal  = $(this);
-        var button = $(event.relatedTarget);
-        var parent = button.data('parent');
-        var form = $('form', modal);
-        $(form, modal).data('parent', parent);
-        modal.find('.comment').html(parent.description);
-        modal.find('[name="data[Comment][parent_id]"]').val(parent.id);
-    });
+    $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+    $('[title]').tooltip();
 
     $(document).on('submit', 'form', async function(event) {
         var form = event.target;
         if ( !$(form).data('transaction')) {
             event.preventDefault();
-            var comment  = $(form).find('[name="data[Comment][description]"]').val();
-            var response = await post(comment, $(form).data('parent'));
+            var data = {
+                title:       $(form).find('[name="data[Proposal][title]"]').val(),
+                type:        $(form).find('[name="data[Proposal][type]"]').val(),
+                name:        $(form).find('[name="data[Proposal][name]"]').val(),
+                description: $(form).find('[name="data[Proposal][description]"]').val(),
+                content:     $(form).find('[name="data[Proposal][content]"]').val(),
+            }
+            var response = await post(data);
+            console.log(response);
+            return false;
             if (response) {
                 $(form).data('transaction', response);
                 $(form).find('[name="data[Comment][transaction]"]').val(response);
@@ -129,23 +127,4 @@ $(function() {
         }
         return $(form).data('transaction');
     });
-
-    $(document).on('click', '.vote4comment', async function(event) {
-        event.preventDefault();
-        var link        = this;
-        var data        = $(this).data();
-        var sumOld      = $('.sum', link).html();
-        $('.sum', link).html('<i class = "fa fa-spinner fa-spin"></i>');
-        var transaction = await vote(data.comment, data.vote);
-        if (!transaction) {
-            $('.sum', link).html(sumOld);
-        } else {
-            $.post('/votes4comments', {transaction: transaction,}, function(data) {
-                $('.sum', link).html(data);
-            });
-        }
-    });
-
-    $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-    $('[title]').tooltip();
 });

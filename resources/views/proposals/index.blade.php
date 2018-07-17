@@ -3,11 +3,10 @@
 @section('title', 'proposals')
 
 @section('content')
-    <p>Hello, welcome to Voteos.info </p>
+
     <p>The purpose of this site is to help the EOS community develop a way to discover the wishes of the tokenholders; where there is agreement and where there is controversy, based on the amount of support a given proposal attains.  </p>
     <p>Here, you can let your voice be heard and your tokens be counted on any issue.  You can show support for any proposal or comment, or start your own initiative to see if it is widely supported!</p>
     <p>Join us in our effort to help the EOS better communicate, with on-chain discussions, which can lead to referenda, worker proposals, changes to the constitution, system contracts or simply gauging the support for your ideas.  Use your stake to make your opinion count!</p>
-    <!-- p>Click here to watch a tutorial video explaining how to use the tool. </p -->
 
     <div class="row mt-4">
         <div class="col-md-8">

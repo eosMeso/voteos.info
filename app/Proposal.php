@@ -25,6 +25,9 @@ class Proposal extends Model
     {
         $base = '../';
         $file = \file_get_contents($base.'resources/eos-mainnet-governance/eosio.system/eosio.system-clause-constitution-rc.md');
+
+        $this->content = $file;
+
         $file = explode('# ', $file);
         $articles = [];
         foreach ($file as $row) {
