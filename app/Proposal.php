@@ -27,18 +27,27 @@ class Proposal extends Model
         $file = \file_get_contents($base.'resources/eos-mainnet-governance/eosio.system/eosio.system-clause-constitution-rc.md');
 
         $this->content = $file;
+    }
 
-        $file = explode('# ', $file);
+    public function createArticlesFromContent($content)
+    {
+        $content  = "\n$content";
+        $content  = preg_split('/\n# /', $content);
         $articles = [];
-        foreach ($file as $row) {
+        foreach ($content as $row) {
             $row = trim($row);
             $row = explode("\n", $row);
-            if (count($row) == 1) continue;
+            if (count($row) === 1)  {
+                $title = $this->name;
+            } else {
+                $title = array_shift($row);
+            }
 
             $article = new Article();
-            $article->name = array_shift($row);
+            $article->name        = $title;
             $article->description = implode("\n", $row);
-            $this->articles[] = $article;
+            $articles[] = $article;
         }
+        return $articles;
     }
 }

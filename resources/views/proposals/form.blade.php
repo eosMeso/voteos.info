@@ -23,6 +23,7 @@
         });
     </script>
     {!! Form::model($element, ['route' => 'proposals.store', $element->id]) !!}
+        {!! Form::hidden('data[Proposal][transaction]') !!}
 
         <div class="form-group row">
             <label class="col-3 col-form-label" for="data[Proposal][title]">Title:</label>
@@ -31,7 +32,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-3 col-form-label" for="data[Proposal][name]">Type:</label>
+            <label class="col-3 col-form-label" for="data[Proposal][type]">Type:</label>
             <div class="col-9">
                 {{ Form::select('data[Proposal][type]',
                     ['constitution' => 'constitution' , 'working proposal' => 'working proposal', 'general' => 'general'],
@@ -40,24 +41,12 @@
                 )}}
             </div>
         </div>
-
-        <div class="form-group row">
-            <label class="col-3 col-form-label" for="data[Proposal][name]">
-                Proposal name:
-                <br />
-                <small>How it will be named in the chain</small>
-            </label>
-            <div class="col-9">
-                <input class="form-control" name="data[Proposal][name]" value="{{ $element->name }}" required="required" placeholder="12chars.long" maxlength="12" style="width: 10em; font-family: Monospace;" />
-            </div>
-        </div>
         <div class="form-group row">
             <label class="col-3 col-form-label" for="data[Proposal][desciption]">Description:</label>
             <div class="col-9">
                 <textarea class="form-control" name="data[Proposal][description]" required="required" style="height: 14em;" placeholder="A way for people to understand what your proposal is about.">{{ $element->description }}</textarea>
             </div>
         </div>
-
         <div class="row">
             <div class="col-6">
                 <label class="form-label" for="data[Proposal][desciption]">Content:</label>

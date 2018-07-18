@@ -47,7 +47,7 @@ document.addEventListener('scatterLoaded', scatterExtension => {
 
                 });
 
-                eos.contract('eosforumtest').then(backend => {
+                eos.contract('eosmesoforum').then(backend => {
                     window.myEOS = {
                         eos: eos,
                         eosOptions: eosOptions,

@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'ProposalsController@index');
+Route::get('/', 'ProposalsController@index')->name('home');
 
 Route::resource('comments',            'CommentsController');
 Route::resource('proposals',           'ProposalsController');

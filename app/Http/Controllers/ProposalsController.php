@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Proposal;
 use App\Comment;
+use App\User;
+use App\Votes4proposal;
 use Illuminate\Http\Request;
+use EOSPHP\EOSClient;
 
 class ProposalsController extends Controller
 {
@@ -43,22 +46,35 @@ class ProposalsController extends Controller
      */
     public function store(Request $request)
     {
-        $data     = $request->all();
-        $proposal = new Proposal();
 
-        $proposal->user_id     = 1;
-        $proposal->name        = $data['data']['Proposal']['name'];
-        $proposal->description = $data['data']['Proposal']['description'];
+        $eos  = getEnv('EOS_PROT').'://'.getEnv('EOS_NODE').':'.getEnv('EOS_PORT');
+        $eos  = new EOSClient($eos);
+        $data = $request->all();
 
-        $proposal->save();
+        $transaction = $eos->history()->getTransaction($data['data']['Proposal']['transaction']);
+        $transaction = $transaction->trx->trx->actions[0]->data;
+        $meta        = json_decode($transaction->json_meta);
 
-        foreach ($data['data']['Article']['name'] as $i => $name) {
-            $article = new Article();
-            $article->name = $name;
-            $article->description = $data['data']['Article']['description'][$i];
-            $proposal->articles()->save($article);
-        }
-        return redirect()->route('proposals.show',$proposal->id);
+        $user    = User::factory($eos, $transaction->account);
+        $element = new Proposal();
+        $element->transaction = $data['data']['Proposal']['transaction'];
+        $element->name        = $transaction->title;
+        $element->user_id     = $user->id;
+        $element->type        = $meta->type;
+        $element->description = $meta->description;
+        $element->save();
+
+        $articles = $element->createArticlesFromContent($transaction->content);
+        $element->articles()->saveMany($articles);
+
+        $vote = new Votes4proposal();
+        $vote->transaction = $element->transaction;
+        $vote->user_id     = $user->id;
+        $vote->proposal_id = $element->id;
+        $vote->value       = 1;
+        $vote->save();
+        return redirect()->route('home');
+
     }
 
     /**

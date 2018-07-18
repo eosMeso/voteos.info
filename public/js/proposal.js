@@ -47,7 +47,7 @@ document.addEventListener('scatterLoaded', scatterExtension => {
 
                 });
 
-                eos.contract('eosforumtest').then(backend => {
+                eos.contract('eosmesoforum').then(backend => {
                     window.myEOS = {
                         eos: eos,
                         eosOptions: eosOptions,
@@ -65,30 +65,18 @@ document.addEventListener('scatterLoaded', scatterExtension => {
 });
 
 async function post(data) {
-
-
     backend = window.myEOS.backend;
-    var r =     await backend.unpropose({
-        proposer:      window.myEOS.account.name,
-        proposal_name: data.name,
-    }, window.myEOS.eosOptions);
-    console.log(r);
-    return false;
-
-
-    backend = window.myEOS.backend;
-    var response = await backend.propose({
-        proposer:      window.myEOS.account.name,
-        proposal_name: data.name,
-        title:         data.title,
-        proposal_json: JSON.stringify({
+    var response = await backend.post({
+        account:     window.myEOS.account.name,
+        title:       data.title,
+        content:     data.content,
+        reply_to_tx: '',
+        json_meta: JSON.stringify({
             type:        data.type,
             description: data.description,
-            content:     data.content,
         }),
     }, window.myEOS.eosOptions);
     var approved = ((response.broadcast === true) && response.transaction_id);
-    console.log(approved);
     return approved;
 }
 
@@ -104,16 +92,13 @@ $(function() {
             var data = {
                 title:       $(form).find('[name="data[Proposal][title]"]').val(),
                 type:        $(form).find('[name="data[Proposal][type]"]').val(),
-                name:        $(form).find('[name="data[Proposal][name]"]').val(),
                 description: $(form).find('[name="data[Proposal][description]"]').val(),
                 content:     $(form).find('[name="data[Proposal][content]"]').val(),
             }
             var response = await post(data);
-            console.log(response);
-            return false;
             if (response) {
                 $(form).data('transaction', response);
-                $(form).find('[name="data[Comment][transaction]"]').val(response);
+                $(form).find('[name="data[Proposal][transaction]"]').val(response);
                 $(form).submit();
             }
         }
