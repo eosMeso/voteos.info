@@ -17,3 +17,4 @@ Route::resource('comments',            'CommentsController');
 Route::resource('proposals',           'ProposalsController');
 Route::resource('proposals.articles',  'ArticlesController');
 Route::resource('votes4comments',      'Votes4commentsController');
+Route::resource('votes4proposals',     'Votes4proposalsController');

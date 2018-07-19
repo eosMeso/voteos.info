@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Article;
-use App\Comment;
+use App\Proposal;
 use App\User;
-use App\Votes4comment;
+use App\Votes4proposal;
 use EOSPHP\EOSClient;
 
 
-class Votes4commentsController extends Controller
+class Votes4proposalsController extends Controller
 {
 
     /**
@@ -32,19 +32,19 @@ class Votes4commentsController extends Controller
         $meta        = json_decode($transaction->json_meta);
         $user        = User::factory($eos, $transaction->voter);
 
-        $commentId = $meta->commentId;
+        $proposalId = $meta->proposalId;
 
 
-        $deleted = Votes4comment::where('user_id', $user->id)->where('comment_id', $commentId)->delete();
+        $deleted = Votes4proposal::where('user_id', $user->id)->where('proposal_id', $proposalId)->delete();
         if (!$deleted) {
-          $element = new Votes4comment();
+          $element = new Votes4proposal();
           $element->transaction = $data['transaction'];
           $element->user_id     = $user->id;
-          $element->comment_id  = $commentId;
+          $element->proposal_id = $proposalId;
           $element->value       = $transaction->vote_value;
           $element->save();
         }
-        $comment = Comment::findOrfail($commentId);
+        $comment = Proposal::findOrfail($proposalId);
         $sum     = $comment->votes($transaction->vote_value);
         return number_format($sum, 0);
     }

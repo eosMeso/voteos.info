@@ -81,17 +81,15 @@ async function post(message, parent) {
 
 async function vote(post, vote) {
     backend = window.myEOS.backend;
-    var post_uuid = POST_ID;
     var response  = false;
     try {
         response = await backend.vote({
             voter:         window.myEOS.account.name,
-            proposer:      post.user.name,
-            proposal:      post_uuid + "#comment-" + post.id,
-            proposal_name: post.user.name,
-            proposal_hash: '',
-            vote:          vote,
-            vote_json:     '',
+            tx:            post.transaction,
+            vote_value:    vote,
+            json_meta:  JSON.stringify({
+                commentId: post.id,
+            })
         }, window.myEOS.eosOptions);
     } catch (error) {
         alert(error);

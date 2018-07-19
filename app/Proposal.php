@@ -15,7 +15,6 @@ class Proposal extends Model
         return $this->hasMany(Article::class);
     }
 
-
     /**
      * @DBRM
      */

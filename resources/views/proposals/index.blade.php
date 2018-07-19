@@ -3,6 +3,7 @@
 @section('title', 'proposals')
 
 @section('content')
+    <script src="{{ asset('js/proposal.js') }}"></script>
 
     <p>The purpose of this site is to help the EOS community develop a way to discover the wishes of the tokenholders; where there is agreement and where there is controversy, based on the amount of support a given proposal attains.  </p>
     <p>Here, you can let your voice be heard and your tokens be counted on any issue.  You can show support for any proposal or comment, or start your own initiative to see if it is widely supported!</p>
@@ -41,11 +42,11 @@
                                 <i class="fas fa-weight-hanging"></i> {{ number_format($element->user->stake, 0)}}
                                 <i class="far fa-calendar-alt"></i> {{ $element->created_at->format('m/d/Y')}}
                                 <a href="https://eosflare.io/tx/{{$element->transaction}}" target="_blank" title="analyze the transaction stored in the chain"><i class="fas fa-link"></i>  {{ substr($element->transaction, 0, 4)}}…</a>
-                                <a href="#" class="eos vote4comment text-success" data-comment="{{ json_encode($element) }}" data-vote="1">
+                                <a href="#" class="eos vote4proposal text-success" data-proposal="{{ json_encode($element) }}" data-vote="1">
                                     <i class="far fa-thumbs-up"></i>
                                     + <span class="sum">{{ number_format($element->votes(1), 0) }}</span>
                                 </a>
-                                <a href="#" class="eos vote4comment text-danger"  data-comment="{{ json_encode($element) }}" data-vote="0">
+                                <a href="#" class="eos vote4proposal text-danger"  data-proposal="{{ json_encode($element) }}" data-vote="0">
                                     <i class="far fa-thumbs-down"></i>
                                     - <span class="sum">{{ number_format($element->votes(0), 0) }}</span>
                                 </a>
