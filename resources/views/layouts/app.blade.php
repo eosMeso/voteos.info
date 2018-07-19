@@ -50,13 +50,13 @@
                     </li>
                     -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/pages/about') }}">constitutions</a>
+                        <a class="nav-link" href="{{ url('/proposals?type=constitution') }}">constitutions</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/pages/about') }}">working proposals</a>
+                        <a class="nav-link" href="{{ url('/proposals?type=working_proposal') }}">working proposals</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/pages/about') }}">general discusions</a>
+                        <a class="nav-link" href="{{ url('/proposals?type=general') }}">general discusions</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/proposals/create') }}">

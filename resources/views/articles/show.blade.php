@@ -11,10 +11,10 @@ function tree($nodes, $level = 0) {
                 <blockquote class="blockquote">
                     <p>{!! $node->description !!}</p>
                     <footer class="blockquote-footer">
-                        <i class="far fa-user"></i> <a target="_blank" href="https://eostracker.io/accounts/{{ $node->user->name}}">{{ $node->user->name}}</a>
+                        <i class="far fa-user"></i> <a target="_blank" href="https://eosflare.io/account/{{ $node->user->name}}">{{ $node->user->name}}</a>
                         <i class="fas fa-weight-hanging"></i> {{ number_format($node->user->stake, 0)}}
                         <i class="far fa-calendar-alt"></i> {{ $node->created_at->format('m/d/Y')}}
-                        <a href="https://eospark.com/MainNet/tx/{{$node->transaction}}" target="_blank" title="analyze the transaction stored in the chain"><i class="fas fa-link"></i>  {{ substr($node->transaction, 0, 4)}}…</a>
+                        <a href="https://eosflare.io/tx/{{$node->transaction}}" target="_blank" title="analyze the transaction stored in the chain"><i class="fas fa-link"></i>  {{ substr($node->transaction, 0, 4)}}…</a>
                         <a href="#" class="eos vote4comment text-success" data-comment="{{ json_encode($node) }}" data-vote="1">
                             <i class="far fa-thumbs-up"></i>
                             + <span class="sum">{{ number_format($node->votes(1), 0) }}</span>
@@ -38,7 +38,7 @@ function tree($nodes, $level = 0) {
     <script src="{{ asset('js/forum.js') }}"></script>
     <script>
         const POST_ID   = '{{ url()->full() }}';
-        const POST_NAME = '[voteos.info] {{ $article->name }} / {{ $proposal->name }}';
+        const POST_NAME = '[voteos.info] {{ $proposal->name }} / {{ $article->name }}';
     </script>
 
     <h2>{{ $proposal->name }}</h2>

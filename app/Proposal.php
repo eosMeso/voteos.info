@@ -17,6 +17,32 @@ class Proposal extends Model
 
 
     /**
+     * @DBRM
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @DBRM
+     */
+    public function votes4proposal()
+    {
+        return $this->hasMany(Votes4proposal::class);
+    }
+
+    public function votes($type)
+    {
+        $votes = $this->votes4proposal()->where('value', $type)->get();
+        $sum   = 0;
+        foreach ($votes as $vote) {
+            $sum += $vote->user->stake;
+        }
+        return $sum;
+    }
+
+    /**
      * Reads the existing constitution to put as placeholders
      *
      * @return string[]

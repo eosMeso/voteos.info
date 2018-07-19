@@ -35,7 +35,7 @@
             <label class="col-3 col-form-label" for="data[Proposal][type]">Type:</label>
             <div class="col-9">
                 {{ Form::select('data[Proposal][type]',
-                    ['constitution' => 'constitution' , 'working proposal' => 'working proposal', 'general' => 'general'],
+                    ['constitution' => 'constitution' , 'working_proposal' => 'working proposal', 'general' => 'general'],
                     null,
                     ['class' => 'form-control']
                 )}}

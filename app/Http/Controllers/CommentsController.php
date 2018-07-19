@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Comment;
 use App\User;
+use App\Votes4comment;
 use Illuminate\Http\Request;
 use EOSPHP\EOSClient;
 
@@ -37,6 +38,14 @@ class CommentsController extends Controller
             $element->parent_id = $data['data']['Comment']['parent_id'];
         }
         $element->save();
+
+        $vote = new Votes4comment();
+        $vote->transaction = $element->transaction;
+        $vote->user_id     = $user->id;
+        $vote->comment_id  = $element->id;
+        $vote->value       = 1;
+        $vote->save();
+
         $article = Article::findOrFail($element->article_id);
         return redirect()->route('proposals.articles.show', [$article->proposal_id, $article->id]);
     }

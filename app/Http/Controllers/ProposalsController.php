@@ -16,10 +16,18 @@ class ProposalsController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     *
+     * @todo The comments should belong to the proposals listed.
+     * @todo The comments should link to the proposal/article.
      */
     public function index()
     {
-        $elements = Proposal::all()->sortByDesc('updated_at');
+        if (empty($_GET['type'])) {
+            $elements = Proposal::all();
+        } else {
+            $elements = Proposal::where('type', $_GET['type'])->get();
+        }
+        $elements->sortByDesc('updated_at');
         $comments = Comment::paginate(15)->sortByDesc('updated_at');
         return view('proposals.index', compact('elements', 'comments'));
     }

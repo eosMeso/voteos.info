@@ -69,13 +69,11 @@ async function post(message, parent) {
     backend = window.myEOS.backend;
     var post_uuid = POST_ID;
     var response = await backend.post({
-        "poster":             window.myEOS.account.name,
-        "post_uuid":          post_uuid,
-        "content":            message,
-        "reply_to_poster":    (parent && parent.user.name) ? parent.user.name :  '',
-        "reply_to_post_uuid": (parent && parent.id) ? post_uuid + "#comment-" + parent.id : '',
-        "certify":            0,
-        "json_metadata":      ""
+        "account":     window.myEOS.account.name,
+        "title":       (parent && parent.transaction) ? '' : POST_NAME,
+        "content":     message,
+        "reply_to_tx": (parent && parent.transaction) ? parent.transaction : '',
+        "json_meta":   ""
     }, window.myEOS.eosOptions);
     var approved = ((response.broadcast === true) && response.transaction_id);
     return approved;
@@ -111,6 +109,7 @@ $(function() {
         var parent = button.data('parent');
         var form = $('form', modal);
         $(form, modal).data('parent', parent);
+        console.log(parent);
         modal.find('.comment').html(parent.description);
         modal.find('[name="data[Comment][parent_id]"]').val(parent.id);
     });
