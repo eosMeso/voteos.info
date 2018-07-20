@@ -15,13 +15,27 @@ html {
         background-position: bottom;
         background-repeat: repeat-x;
 
+        .nav-brand { margin-right: 0;}
+        .navbar-toggler { padding: 0.25rem;}
+
         > div.container {
             background: white;
         }
     }
     h1 a:hover {text-decoration: none;}
 
+    a.disabled, a:disabled {
+        color: gray;
+        // pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.5;
+        text-decoration: none;
+    }
+
     blockquote p {margin-bottom: 0.4em;}
+
+
+
 
 
     .forumPost {padding: 0.5em 0 0 0.5em;}

@@ -36,6 +36,7 @@
             <a class="navbar-brand" href="{{ url('/') }}" style="font-size: 1.5em;">
                 <i class="far fa-check-square" style="transform: rotate(-20deg);"></i>
                 voteos.info
+                <img src="{{ asset('img/alpha.jpg') }}"  style="height: 50px; margin: -25px -15px -25px -5px;" />
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -70,26 +70,41 @@ html body {
   background-repeat: repeat-x;
 }
 /* line 18, ../sass/voteos.scss */
+html body .nav-brand {
+  margin-right: 0;
+}
+/* line 19, ../sass/voteos.scss */
+html body .navbar-toggler {
+  padding: 0.25rem;
+}
+/* line 21, ../sass/voteos.scss */
 html body > div.container {
   background: white;
 }
-/* line 22, ../sass/voteos.scss */
+/* line 25, ../sass/voteos.scss */
 html h1 a:hover {
   text-decoration: none;
 }
-/* line 24, ../sass/voteos.scss */
+/* line 27, ../sass/voteos.scss */
+html a.disabled, html a:disabled {
+  color: gray;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+}
+/* line 35, ../sass/voteos.scss */
 html blockquote p {
   margin-bottom: 0.4em;
 }
-/* line 27, ../sass/voteos.scss */
+/* line 41, ../sass/voteos.scss */
 html .forumPost {
   padding: 0.5em 0 0 0.5em;
 }
-/* line 28, ../sass/voteos.scss */
+/* line 42, ../sass/voteos.scss */
 html .blockquote {
   font-size: 1em;
 }
-/* line 29, ../sass/voteos.scss */
+/* line 43, ../sass/voteos.scss */
 html #reply .modal-dialog {
   max-width: 75%;
 }

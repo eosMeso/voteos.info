@@ -56,12 +56,7 @@ document.addEventListener('scatterLoaded', scatterExtension => {
                     };
                 });
             });
-    }).catch(error => {
-        $('.eos').prop('disabled', 'disabled');
-        $('.eos').prop('title', 'Scatter is not installer or enabled for you to submit.');
-        $('[title]').tooltip();
-        $('.account').hide();
-    });
+    }).catch(disableos);
 });
 
 async function post(data) {
@@ -101,45 +96,61 @@ async function vote(post, vote) {
     return approved;
 }
 
+function disableos() {
+    $('.eos').attr('disabled', 'disabled');
+    $('.eos').prop('disabled', 'disabled');
+    $('.eos').addClass('disabled');
+    $('.eos').prop('title', 'Scatter is not installer or enabled for you to submit.');
+    $(document).on('click', '.eos', async function(event) {
+        $('[title]').tooltip('toggle');
+        event.preventDefault();
+    });
+    $('.account').hide();
+    $('[title]').tooltip();
+}
 
 
 $(function() {
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+    disableos();
     $('[title]').tooltip();
 
-    $(document).on('submit', 'form', async function(event) {
-        var form = event.target;
-        if ( !$(form).data('transaction')) {
-            event.preventDefault();
-            var data = {
-                title:       $(form).find('[name="data[Proposal][title]"]').val(),
-                type:        $(form).find('[name="data[Proposal][type]"]').val(),
-                description: $(form).find('[name="data[Proposal][description]"]').val(),
-                content:     $(form).find('[name="data[Proposal][content]"]').val(),
-            }
-            var response = await post(data);
-            if (response) {
-                $(form).data('transaction', response);
-                $(form).find('[name="data[Proposal][transaction]"]').val(response);
-                $(form).submit();
-            }
-        }
-        return $(form).data('transaction');
-    });
+    document.addEventListener('scatterLoaded', scatterExtension => {
 
-    $(document).on('click', '.vote4proposal', async function(event) {
-        event.preventDefault();
-        var link        = this;
-        var data        = $(this).data();
-        var sumOld      = $('.sum', link).html();
-        $('.sum', link).html('<i class = "fa fa-spinner fa-spin"></i>');
-        var transaction = await vote(data.proposal, data.vote);
-        if (!transaction) {
-            $('.sum', link).html(sumOld);
-        } else {
-            $.post('/votes4proposals', {transaction: transaction,}, function(data) {
-                $('.sum', link).html(data);
-            });
-        }
+        $(document).on('submit', 'form', async function(event) {
+            var form = event.target;
+            if ( !$(form).data('transaction')) {
+                event.preventDefault();
+                var data = {
+                    title:       $(form).find('[name="data[Proposal][title]"]').val(),
+                    type:        $(form).find('[name="data[Proposal][type]"]').val(),
+                    description: $(form).find('[name="data[Proposal][description]"]').val(),
+                    content:     $(form).find('[name="data[Proposal][content]"]').val(),
+                }
+                var response = await post(data);
+                if (response) {
+                    $(form).data('transaction', response);
+                    $(form).find('[name="data[Proposal][transaction]"]').val(response);
+                    $(form).submit();
+                }
+            }
+            return $(form).data('transaction');
+        });
+
+        $(document).on('click', '.vote4proposal', async function(event) {
+            event.preventDefault();
+            var link        = this;
+            var data        = $(this).data();
+            var sumOld      = $('.sum', link).html();
+            $('.sum', link).html('<i class = "fa fa-spinner fa-spin"></i>');
+            var transaction = await vote(data.proposal, data.vote);
+            if (!transaction) {
+                $('.sum', link).html(sumOld);
+            } else {
+                $.post('/votes4proposals', {transaction: transaction,}, function(data) {
+                    $('.sum', link).html(data);
+                });
+            }
+        });
     });
 });
