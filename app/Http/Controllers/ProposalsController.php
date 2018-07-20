@@ -27,7 +27,7 @@ class ProposalsController extends Controller
         } else {
             $elements = Proposal::where('type', $_GET['type'])->get();
         }
-        $elements->sortByDesc('updated_at');
+        $elements = $elements->sortByDesc('updated_at');
         $comments = Comment::paginate(15)->sortByDesc('updated_at');
         return view('proposals.index', compact('elements', 'comments'));
     }
