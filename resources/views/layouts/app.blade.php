@@ -21,6 +21,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/eosjs@15.0.3/lib/eos.min.js" integrity="sha512-QX0dPq5pyX33coEuy5x1UqKHFDeveQYMp7Sz+qOUwRL9mol4QDvViU+QAjd+k6P7QjPjrDCoyhK1kz2GDxCP9A==" crossorigin="anonymous"></script>
+
+    <script src="{{ asset('js/voteos.js') }}"></script>
     <script>
         const EOS_NODE = '{{ getEnv('EOS_NODE')}}';
         const EOS_PORT = '{{ getEnv('EOS_PORT')}}';
@@ -81,22 +83,24 @@
             <small class="text-muted">vote informed, vote smart</small>
         </h1>
 
+        <div class="content">
 
-        <div class="position-ref">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                @yield('content')
+            <div class="alert alert-warning no-eos d-none">
+                <p>
+                    <img src="{{ asset('img/scatter.jpeg') }}" class="rounded float-left" style="height: 1.5em; margin-right: 0.5em;" />
+                    <strong class="h4">We‘ve detected you don‘t have Scatter installed. </strong>
+                </p>
+                <p>
+                    Scatter is is an EOS tool to allow you to autenticate your EOS account to be able
+                    to vote or comment, signing any interaction within the site. Please install and
+                    configure your EOS account using Scatter to be able to post or vote in the site.
+                </p>
+                <p>
+                    <a href="https://get-scatter.com/" target="_blank" class="btn btn-primary">Get Scatter!</a>
+                </p>
             </div>
+
+            @yield('content')
         </div>
 
         <footer class="text-center pb-2">
@@ -110,5 +114,14 @@
             </p>
         </footer>
     </div>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-122661947-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-122661947-1');
+    </script>
   </body>
 </html>

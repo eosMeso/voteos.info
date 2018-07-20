@@ -1,8 +1,3 @@
-/*jshint esversion: 6 */
-
-
-window.myEOS = {};
-
 document.addEventListener('scatterLoaded', scatterExtension => {
     // Scatter will now be available from the window scope.
     // At this stage the connection to Scatter from the application is
@@ -56,7 +51,9 @@ document.addEventListener('scatterLoaded', scatterExtension => {
                     };
                 });
             });
-    }).catch(disableos);
+    }).catch(function() {
+        disableos();
+    });
 });
 
 async function post(data) {
@@ -96,24 +93,16 @@ async function vote(post, vote) {
     return approved;
 }
 
-function disableos() {
-    $('.eos').attr('disabled', 'disabled');
-    $('.eos').prop('disabled', 'disabled');
-    $('.eos').addClass('disabled');
-    $('.eos').prop('title', 'Scatter is not installer or enabled for you to submit.');
-    $(document).on('click', '.eos', async function(event) {
-        $('[title]').tooltip('toggle');
-        event.preventDefault();
-    });
-    $('.account').hide();
-    $('[title]').tooltip();
-}
-
 
 $(function() {
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-    disableos();
     $('[title]').tooltip();
+
+    setTimeout(function () {
+        if (window.myEOS.account === undefined) {
+            disableos();
+        }
+    }, 5000);
 
     document.addEventListener('scatterLoaded', scatterExtension => {
 
