@@ -3,6 +3,7 @@
 @section('title', 'proposals')
 
 @section('content')
+<script src="{{ asset('js/eosmeso-vote.js') }}"></script>
 
 <h1>About voteos.info</h1>
 
@@ -76,7 +77,23 @@
     </a>
 </p>
 
-<p class="text-center">Use your voice, stay informed. Voteos!</p>
+<p>
+    We do have plans to keep the project growing. Currently we keep track of the votes' sum in
+    a database, even when they can be tracked on chain. We plan for versio 2 to keep the sum
+    in RAM, but for that we do need your support.
+</p>
+<p>
+    Please, vote for eosMeso (<span class="text-monospace">eosmesodotio</span>) for us to have funds
+    to keep working in this project.
+</p>
+
+
+<p class="text-center">
+    <a href="#" id="voteMeso" class="btn btn-primary">Vote for eosMeso</a>
+    <br />
+    <br />
+    Use your voice, stay informed. Voteos!
+</p>
 
 
 @endsection
