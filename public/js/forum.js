@@ -97,6 +97,27 @@ async function vote(post, vote) {
 }
 
 
+async function vote4proposal(post, vote) {
+    backend = window.myEOS.backend;
+    var response  = false;
+    try {
+        response = await backend.vote({
+            voter:         window.myEOS.account.name,
+            tx:            post.transaction,
+            vote_value:    vote,
+            json_meta:  JSON.stringify({
+                proposalId: post.id,
+            })
+        }, window.myEOS.eosOptions);
+    } catch (error) {
+        alert(error);
+        return false;
+    }
+    var approved = ((response.broadcast === true) && response.transaction_id);
+    return approved;
+}
+
+
 $(function() {
     $(document).on('show.bs.modal', function (event) {
         var modal  = $(this);
@@ -135,6 +156,23 @@ $(function() {
             $('.sum', link).html(sumOld);
         } else {
             $.post('/votes4comments', {transaction: transaction,}, function(data) {
+                $('.sum', link).html(data);
+            });
+        }
+    });
+
+
+    $(document).on('click', '.vote4proposal', async function(event) {
+        event.preventDefault();
+        var link        = this;
+        var data        = $(this).data();
+        var sumOld      = $('.sum', link).html();
+        $('.sum', link).html('<i class = "fa fa-spinner fa-spin"></i>');
+        var transaction = await vote4proposal(data.proposal, data.vote);
+        if (!transaction) {
+            $('.sum', link).html(sumOld);
+        } else {
+            $.post('/votes4proposals', {transaction: transaction,}, function(data) {
                 $('.sum', link).html(data);
             });
         }

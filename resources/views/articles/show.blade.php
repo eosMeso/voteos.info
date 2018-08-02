@@ -41,8 +41,26 @@ function tree($nodes, $level = 0) {
         const POST_NAME = '[voteos.info] {{ $proposal->name }} / {{ $article->name }}';
     </script>
 
-    <h2>{{ $proposal->name }}</h2>
+    <a href="{{ route('proposals.show', $proposal->id) }}">
+        <h2>{{ $proposal->name }}</h2>
+    </a>
     <p>{!! $proposal->description !!}</p>
+    <p>
+        <i class="far fa-user"></i> <a target="_blank" href="https://eosflare.io/account/{{ $proposal->user->name}}">{{ $proposal->user->name}}</a>
+        <i class="fas fa-weight-hanging"></i> {{ number_format($proposal->user->stake, 0)}}
+        <i class="far fa-calendar-alt"></i> {{ $proposal->created_at->format('m/d/Y')}}
+        <a href="https://eosflare.io/tx/{{$proposal->transaction}}" target="_blank" title="analyze the transaction stored in the chain">
+            <i class="fas fa-link"></i>  {{ substr($proposal->transaction, 0, 4)}}…
+        </a>
+        <a href="#" class="eos vote4proposal text-success" data-proposal="{{ json_encode($proposal) }}" data-vote="1">
+            <i class="far fa-thumbs-up"></i>
+            + <span class="sum">{{ number_format($proposal->votes(1), 0) }}</span>
+        </a>
+        <a href="#" class="eos vote4proposal text-danger"  data-proposal="{{ json_encode($proposal) }}" data-vote="0">
+            <i class="far fa-thumbs-down"></i>
+            - <span class="sum">{{ number_format($proposal->votes(0), 0) }}</span>
+        </a>
+    </p>
 
     <div class="row">
         <div class="col-4">
