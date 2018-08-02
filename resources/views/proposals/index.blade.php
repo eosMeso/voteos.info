@@ -9,6 +9,17 @@
     <p>Here, you can let your voice be heard and your tokens be counted on any issue.  You can show support for any proposal or comment, or start your own initiative to see if it is widely supported!</p>
     <p>Join us in our effort to help the EOS better communicate, with on-chain discussions, which can lead to referenda, worker proposals, changes to the constitution, system contracts or simply gauging the support for your ideas.  Use your stake to make your opinion count!</p>
 
+    <h2>How to create your own proposal</h2>
+
+    <ul>
+        <li>First make sure you have <a href="https://get-scatter.com/" target="_blank">Scatter</a> installed and unlocked.</li>
+        <li>Click on
+            <a href="{{ url('/proposals/create') }}"><i class="fa fa-plus"></i> create proposal</a>
+            on the menu at the top of the page. </li>
+        <li>Next, on the create page you will be shown a form where you can input the Title of your proposal, select the Type or category, and write de description of your idea or proposal. </li>
+        <li>Finally at the bottom of the page, click on Save Your Proposal.</li>
+    </ul>
+
     @if (!count($elements))
         <div class="alert alert-warning" role="alert">
             <h4 class="alert-heading">There was no proposal found yet.</h4>
