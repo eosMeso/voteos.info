@@ -1,4 +1,4 @@
-<? use Michelf\Markdown;?>
+<?php use Michelf\Markdown;?>
 @extends('layouts.app')
 
 @section('title', 'proposals')
