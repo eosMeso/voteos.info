@@ -1,3 +1,4 @@
+<? use Michelf\Markdown;?>
 @extends('layouts.app')
 
 @section('title', 'proposals')
@@ -46,7 +47,7 @@
                                 <h3>{{ $element->name }}</h3>
                             </a>
 
-                            <p>{!! $element->description !!}</p>
+                            {!! Markdown::defaultTransform($element->description) !!}
 
                             <p>
                                 <i class="far fa-user"></i> <a target="_blank" href="https://eosflare.io/account/{{ $element->user->name}}">{{ $element->user->name}}</a>

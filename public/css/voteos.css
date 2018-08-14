@@ -108,3 +108,7 @@ html .blockquote {
 html #reply .modal-dialog {
   max-width: 75%;
 }
+/* line 46, ../sass/voteos.scss */
+html #markdown img, html .markdown img {
+  width: 100%;
+}

@@ -61,7 +61,12 @@
         <div class="form-group row">
             <div class="col-6">
                 <textarea id="content" class="form-control" name="data[Proposal][content]" required="required"
-                    style="height: 100%; min-height: 14em;">{{ $element->content }}</textarea>
+                    style="height: 100%; min-height: 14em;" placeholder="Here you can write in full detail your proposal.
+
+# Split your proposal in articles.
+
+If you split your proposals in articles, people can post comments to a specific artice, to keep a better flow of the discussion.
+                    "></textarea>
             </div>
             <div class="col-6">
                 <div id="markdown"></div>

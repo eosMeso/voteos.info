@@ -61,6 +61,7 @@ class Proposal extends Model
         $articles = [];
         foreach ($content as $row) {
             $row = trim($row);
+            if (!$row) continue;
             $row = explode("\n", $row);
             if (count($row) === 1)  {
                 $title = $this->name;

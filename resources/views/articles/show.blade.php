@@ -1,5 +1,7 @@
 @extends('layouts.app')
 <?php
+use Michelf\Markdown;
+
 /**
  * Draws the block per answer.
  */
@@ -44,7 +46,7 @@ function tree($nodes, $level = 0) {
     <a href="{{ route('proposals.show', $proposal->id) }}">
         <h2>{{ $proposal->name }}</h2>
     </a>
-    <p>{!! $proposal->description !!}</p>
+    {!! Markdown::defaultTransform($proposal->description) !!}
     <p>
         <i class="far fa-user"></i> <a target="_blank" href="https://eosflare.io/account/{{ $proposal->user->name}}">{{ $proposal->user->name}}</a>
         <i class="fas fa-weight-hanging"></i> {{ number_format($proposal->user->stake, 0)}}
@@ -63,17 +65,17 @@ function tree($nodes, $level = 0) {
     </p>
 
     <div class="row">
-        <div class="col-4">
+        <div class="col-6">
             <div class="jumbotron">
                 <h3>{{ $article->name }}</h3>
-                <p class="lead">{{ $article->description }}</p>
+                <div class="lead markdown">{!! Markdown::defaultTransform($article->description) !!}</div>
             </div>
             <div class="center text-center m-4">
                 <a class="btn btn-secondary @if(!$prev) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $prev]) }}"><i class="fas fa-angle-left"></i> prev article</a>
                 <a class="btn btn-secondary @if(!$next) disabled @endif" href="{{ route('proposals.articles.show', [$proposal->id, $next]) }}">next article <i class="fas fa-angle-right"></i></a>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-6">
             @foreach ($forum as $node)
                 {!! tree($node) !!}
             @endforeach
