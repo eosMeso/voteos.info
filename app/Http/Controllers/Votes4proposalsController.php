@@ -25,7 +25,6 @@ class Votes4proposalsController extends Controller
         $data = $request->all();
         $eos  = getEnv('EOS_PROT').'://'.getEnv('EOS_NODE').':'.getEnv('EOS_PORT');
         $eos  = new EOSClient($eos);
-        $data = $request->all();
 
         $transaction = $eos->history()->getTransaction($data['transaction']);
         $transaction = $transaction->trx->trx->actions[0]->data;
