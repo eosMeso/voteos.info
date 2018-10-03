@@ -1,25 +1,26 @@
 /*jshint esversion: 6 */
 
-
 window.myEOS = {};
 
-document.addEventListener('scatterLoaded', scatterExtension => {
-    // Scatter will now be available from the window scope.
-    // At this stage the connection to Scatter from the application is
-    // already encrypted.
-    const scatter = window.scatter;
+scatter.connect("Voteos.info").then(function(connected){
 
-    // It is good practice to take this off the window once you have
-    // a reference to it.
+    // User does not have Scatter.
+    if(!connected) return false;
+
+    const scatter = window.scatter;
     window.scatter = null;
 
     const network = {
-        protocol:EOS_PROT,
-        host:    EOS_NODE,
-        port:    EOS_PORT,
         blockchain: 'eos',
+        host:       EOS_NODE,
+        port:       EOS_PORT,
+        protocol:   EOS_PROT,        
         chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
-    }
+    };
+
+    const requiredFields = {
+        accounts: [network]
+    };
 
     var callback = function(eos, account) {
         $('.accountName').text(account.name);
@@ -29,7 +30,7 @@ document.addEventListener('scatterLoaded', scatterExtension => {
         $('input[name="data[User][stake]"]').val(account.staked);
     };
 
-    scatter.getIdentity({accounts: [network]}).then(identity => {
+    scatter.getIdentity(requiredFields).then(identity => {
         scatter.authenticate()
             .then(sig => {
                 const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
@@ -59,8 +60,8 @@ document.addEventListener('scatterLoaded', scatterExtension => {
     }).catch(function() {
         disableos();
     });
+    
 });
-
 
 async function vote() {
 
@@ -69,7 +70,7 @@ async function vote() {
     if (bps.length >= 30) {
         alert('We are sorry, you arelady voted for the max BPs limit with your acount.');
     } else if (-1 != $.inArray('eosmesodotio', bps)){
-        alert('You already voted for us! We really apreciate that');
+        alert('You already voted for us! We really apreciate that.');
     } else {
         bps.push('eosmesodotio');
         bps.sort();
@@ -77,7 +78,6 @@ async function vote() {
         return vote;
     }
 }
-
 
 $(function() {
     $(document).on('click', '#voteMeso', vote);
