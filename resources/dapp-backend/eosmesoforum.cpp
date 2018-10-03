@@ -28,10 +28,7 @@ class eosmesoforum : public eosio::contract {
                 const std::string& json_meta
         ) {
             require_auth(account);
-
-            eosio_assert(title.size()   < 128, "title should be less than 128 characters long.");
-            eosio_assert(content.size() > 0,   "content should be more than 0 characters long.");
-            eosio_assert(content.size() < 1024 * 1024 * 10, "content should be less than 10 KB long.");
+            eosio_assert(content.size() > 0, "Content should not be empty.");
 
             if (reply_to_tx.size() != 0) {
                 eosio_assert(title.size() == 0,        "If the post is a reply, there should not be a title.");
@@ -39,7 +36,7 @@ class eosmesoforum : public eosio::contract {
             }
 
             if (json_meta.size() != 0) {
-                eosio_assert(json_meta[0] == '{', "json_meta must be a JSON object (if specified).");
+                eosio_assert(json_meta[0] == '{',     "json_meta must be a JSON object (if specified).");
                 eosio_assert(json_meta.size() < 8192, "json_meta should be shorter than 8192 bytes.");
             }
         }
