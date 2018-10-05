@@ -1,7 +1,13 @@
+
 scatter.connect("Voteos.info").then(function(connected){
 
-    // User does not have Scatter.
-    if(!connected) return false;
+    if(!connected) {
+    
+        console.log(arguments);
+        disableos();
+        return false
+
+    }
 
     const scatter = window.scatter;
     window.scatter = null;
@@ -24,6 +30,44 @@ scatter.connect("Voteos.info").then(function(connected){
 
         $('input[name="data[User][name]"]').val(account.name);
         $('input[name="data[User][stake]"]').val(account.staked);
+
+        $(document).on('submit', 'form', async function(event) {
+            var form = event.target;
+            if ( !$(form).data('transaction')) {
+                event.preventDefault();
+                var data = {
+                    title:       $(form).find('[name="data[Proposal][title]"]').val(),
+                    type:        $(form).find('[name="data[Proposal][type]"]').val(),
+                    description: $(form).find('[name="data[Proposal][description]"]').val(),
+                    content:     $(form).find('[name="data[Proposal][content]"]').val(),
+                }
+                var response = await post(data);
+                if (response) {
+                    $(form).data('transaction', response);
+                    $(form).find('[name="data[Proposal][transaction]"]').val(response);
+                    $(form).submit();
+                }
+            }
+            return $(form).data('transaction');
+        });
+
+        $(document).on('click', '.vote4proposal', async function(event) {
+            event.preventDefault();
+            console.log('voting...');
+            var link        = this;
+            var data        = $(this).data();
+            var sumOld      = $('.sum', link).html();
+            $('.sum', link).html('<i class = "fa fa-spinner fa-spin"></i>');
+            var transaction = await vote(data.proposal, data.vote);
+            if (!transaction) {
+                $('.sum', link).html(sumOld);
+            } else {
+                $.post('/votes4proposals', {transaction: transaction,}, function(data) {
+                    $('.sum', link).html(data);
+                });
+            }
+        });
+
     };
 
     scatter.getIdentity(requiredFields).then(identity => {
@@ -56,8 +100,8 @@ scatter.connect("Voteos.info").then(function(connected){
     }).catch(function() {
         disableos();
     });
-    
 });
+
 
 async function post(data) {
     backend = window.myEOS.backend;
@@ -98,50 +142,4 @@ async function vote(post, vote) {
 $(function() {
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
     $('[title]').tooltip();
-
-    setTimeout(function () {
-        if (window.myEOS.account === undefined) {
-            disableos();
-        }
-    }, 5000);
-
-    document.addEventListener('scatterLoaded', scatterExtension => {
-
-        $(document).on('submit', 'form', async function(event) {
-            var form = event.target;
-            if ( !$(form).data('transaction')) {
-                event.preventDefault();
-                var data = {
-                    title:       $(form).find('[name="data[Proposal][title]"]').val(),
-                    type:        $(form).find('[name="data[Proposal][type]"]').val(),
-                    description: $(form).find('[name="data[Proposal][description]"]').val(),
-                    content:     $(form).find('[name="data[Proposal][content]"]').val(),
-                }
-                var response = await post(data);
-                if (response) {
-                    $(form).data('transaction', response);
-                    $(form).find('[name="data[Proposal][transaction]"]').val(response);
-                    $(form).submit();
-                }
-            }
-            return $(form).data('transaction');
-        });
-
-        $(document).on('click', '.vote4proposal', async function(event) {
-            event.preventDefault();
-            console.log('voting...');
-            var link        = this;
-            var data        = $(this).data();
-            var sumOld      = $('.sum', link).html();
-            $('.sum', link).html('<i class = "fa fa-spinner fa-spin"></i>');
-            var transaction = await vote(data.proposal, data.vote);
-            if (!transaction) {
-                $('.sum', link).html(sumOld);
-            } else {
-                $.post('/votes4proposals', {transaction: transaction,}, function(data) {
-                    $('.sum', link).html(data);
-                });
-            }
-        });
-    });
 });
