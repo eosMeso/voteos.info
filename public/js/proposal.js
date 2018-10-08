@@ -1,5 +1,6 @@
+ScatterJS.plugins( new ScatterEOS() );
 
-scatter.connect("Voteos.info").then(function(connected){
+ScatterJS.scatter.connect("Voteos.info").then(function(connected){
 
     if(!connected) {
     
@@ -9,7 +10,7 @@ scatter.connect("Voteos.info").then(function(connected){
 
     }
 
-    const scatter = window.scatter;
+    const scatter = window.ScatterJS.scatter;
     window.scatter = null;
 
     const network = {

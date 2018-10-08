@@ -1,13 +1,14 @@
 /*jshint esversion: 6 */
 
 window.myEOS = {};
+ScatterJS.plugins( new ScatterEOS() );
 
-scatter.connect("Voteos.info").then(function(connected){
+ScatterJS.scatter.connect("Voteos.info").then(function(connected){
 
     // User does not have Scatter.
     if(!connected) return false;
 
-    const scatter = window.scatter;
+    const scatter = window.ScatterJS.scatter;
     window.scatter = null;
 
     const network = {
