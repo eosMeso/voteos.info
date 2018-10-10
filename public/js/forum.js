@@ -126,7 +126,6 @@ $(function() {
         var parent = button.data('parent');
         var form = $('form', modal);
         $(form, modal).data('parent', parent);
-        console.log(parent);
         modal.find('.comment').html(parent.description);
         modal.find('[name="data[Comment][parent_id]"]').val(parent.id);
     });

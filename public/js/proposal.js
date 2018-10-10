@@ -3,8 +3,7 @@ ScatterJS.plugins( new ScatterEOS() );
 ScatterJS.scatter.connect("Voteos.info").then(function(connected){
 
     if(!connected) {
-    
-        console.log(arguments);
+
         disableos();
         return false
 
@@ -54,7 +53,6 @@ ScatterJS.scatter.connect("Voteos.info").then(function(connected){
 
         $(document).on('click', '.vote4proposal', async function(event) {
             event.preventDefault();
-            console.log('voting...');
             var link        = this;
             var data        = $(this).data();
             var sumOld      = $('.sum', link).html();
