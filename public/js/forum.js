@@ -1,25 +1,27 @@
 /*jshint esversion: 6 */
 
-
 window.myEOS = {};
+ScatterJS.plugins( new ScatterEOS() );
 
-document.addEventListener('scatterLoaded', scatterExtension => {
-    // Scatter will now be available from the window scope.
-    // At this stage the connection to Scatter from the application is
-    // already encrypted.
-    const scatter = window.scatter;
+ScatterJS.scatter.connect("Voteos.info").then(function(connected){
 
-    // It is good practice to take this off the window once you have
-    // a reference to it.
+    // User does not have Scatter.
+    if(!connected) return false;
+
+    const scatter = window.ScatterJS.scatter;
     window.scatter = null;
 
     const network = {
-        protocol:EOS_PROT,
-        host:    EOS_NODE,
-        port:    EOS_PORT,
         blockchain: 'eos',
+        host:       EOS_NODE,
+        port:       EOS_PORT,
+        protocol:   EOS_PROT,        
         chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
-    }
+    };
+
+    const requiredFields = {
+        accounts: [network]
+    };
 
     var callback = function(eos, account) {
         $('.accountName').text(account.name);
@@ -29,7 +31,7 @@ document.addEventListener('scatterLoaded', scatterExtension => {
         $('input[name="data[User][stake]"]').val(account.staked);
     };
 
-    scatter.getIdentity({accounts: [network]}).then(identity => {
+    scatter.getIdentity(requiredFields).then(identity => {
         scatter.authenticate()
             .then(sig => {
                 const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
@@ -59,6 +61,7 @@ document.addEventListener('scatterLoaded', scatterExtension => {
     }).catch(function() {
         disableos();
     });
+    
 });
 
 async function post(message, parent) {
@@ -96,7 +99,6 @@ async function vote(post, vote) {
     return approved;
 }
 
-
 async function vote4proposal(post, vote) {
     backend = window.myEOS.backend;
     var response  = false;
@@ -117,7 +119,6 @@ async function vote4proposal(post, vote) {
     return approved;
 }
 
-
 $(function() {
     $(document).on('show.bs.modal', function (event) {
         var modal  = $(this);
@@ -125,7 +126,6 @@ $(function() {
         var parent = button.data('parent');
         var form = $('form', modal);
         $(form, modal).data('parent', parent);
-        console.log(parent);
         modal.find('.comment').html(parent.description);
         modal.find('[name="data[Comment][parent_id]"]').val(parent.id);
     });
@@ -160,7 +160,6 @@ $(function() {
             });
         }
     });
-
 
     $(document).on('click', '.vote4proposal', async function(event) {
         event.preventDefault();
