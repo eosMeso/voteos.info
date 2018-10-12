@@ -14,3 +14,12 @@ yarn-error.log
 
 /public/config.rb
 /public/.sass-cache/
+
+# Laravel mix
+public/mix-manifest.json
+public/js/manifest.js
+public/js/vendor.js
+public/js/app.js
+public/css/*.css
+public/*/*.map
+public/images/*

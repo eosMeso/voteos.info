@@ -12,4 +12,18 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+    .extract(['axios','bootstrap', 'jquery', 'lodash', 'popper.js','vue'])
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    ;
+
+if (mix.config.production) {
+    mix
+        // .minify()
+        .version()
+    ;
+} else {
+    mix
+        .webpackConfig({ devtool: "source-map" })
+        .sourceMaps()
+    ;
+}

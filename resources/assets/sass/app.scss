@@ -3,12 +3,55 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
-@import "variables";
+@import "_variables";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import url('https://bootswatch.com/4/lumen/bootstrap.min.css');
+// @import '~bootstrap/scss/bootstrap';
+@import '_laravel';
 
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+
+html {
+
+    background-image:  url('../images/bg.jpg');
+    background-attachment: fixed;
+    background-position: bottom;
+    background-repeat: repeat-x;
+
+    body {
+        color: black;
+        background-image:  url('../images/bg.jpg');
+        background-attachment: fixed;
+        background-position: bottom;
+        background-repeat: repeat-x;
+
+        .nav-brand { margin-right: 0;}
+        .navbar-toggler { padding: 0.25rem;}
+
+        > div.container {
+            background: white;
+        }
+    }
+    h1 a:hover {text-decoration: none;}
+
+    a.disabled, a:disabled {
+        color:   gray;
+        cursor:  not-allowed;
+        opacity: 0.5;
+        text-decoration: none;
+    }
+
+    blockquote p {margin-bottom: 0.4em;}
+    .forumPost   {padding: 0.5em 0 0 0.5em;}
+    .blockquote  {font-size: 1em;}
+    #reply .modal-dialog {max-width: 75%}
+
+    #markdown img, .markdown img {
+        width: 100%;
+    }
 }
