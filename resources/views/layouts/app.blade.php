@@ -28,6 +28,7 @@
     <script src="https://cdn.jsdelivr.net/npm/eosjs@15.0.3/lib/eos.min.js" integrity="sha512-QX0dPq5pyX33coEuy5x1UqKHFDeveQYMp7Sz+qOUwRL9mol4QDvViU+QAjd+k6P7QjPjrDCoyhK1kz2GDxCP9A==" crossorigin="anonymous"></script>
 
     <script src="{{ asset('js/voteos.js') }}"></script>
+    <script src="{{ asset('js/proposal.js') }}"></script>
     <script>
         const EOS_NODE = '{{ getEnv('EOS_NODE')}}';
         const EOS_PORT = '{{ getEnv('EOS_PORT')}}';
@@ -75,10 +76,49 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ page_url('about') }}">about</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="modal" data-target="#loginModal">
+                            log in
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
 
+        <!-- Log In Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginModalLabel">Log In</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <p>
+                                        To start using voteos.info, log in using your favorite wallet:
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#" id="voteMeso" class="btn btn-primary" onclick="logWithScatter()">Log In with Scatter</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#" id="voteMeso" class="btn btn-primary">Log In with EOS Lynx</a>
+                                </div>
+                            </div>                         
+                        </div>     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <h1 class="text-center m-4">
             <a href="{{ url('/') }}">
