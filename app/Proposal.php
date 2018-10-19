@@ -41,19 +41,6 @@ class Proposal extends Model
         return $sum;
     }
 
-    /**
-     * Reads the existing constitution to put as placeholders
-     *
-     * @return string[]
-     */
-    public function populatePlaceholders()
-    {
-        $base = '../';
-        $file = \file_get_contents($base.'resources/eos-mainnet-governance/eosio.system/eosio.system-clause-constitution-rc.md');
-
-        $this->content = $file;
-    }
-
     public function createArticlesFromContent($content)
     {
         $content  = "\n$content";

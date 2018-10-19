@@ -40,7 +40,6 @@ class ProposalsController extends Controller
     public function create()
     {
         $element = new Proposal();
-        $element->populatePlaceholders();
         return view('proposals.form', compact('element'));
     }
 
